@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATK test</title>
+</head>
+<body>
+    <h1>Request ATK</h1>
+    <form action="" class="form_input">
+        <label for="req_by">Requested By</label><input type="text" name="req_by" id="req_by">
+        <label for="req_for">Requested For</label><input type="text" name="req_for" id="req_for">
+        
+        <p>General Information</p>
+        <label for="nomor_pekerja">Nomor Pekerja</label><input type="text" name="nomor_pekerja" id="nomor_pekerja"><br>
+        <label for="nama_req">Nama Requestor</label><input type="text" name="nama_req" id="nama_req"><br>
+        <label for="fungsi">Fungsi</label><input type="text" name="fungsi" id="fungsi"><br>
+        <label for="perusahaan">Perusahaan</label><input type="text" name="perusahaan" id="perusahaan"><br>
+        <label for="nomor_kontak">Nomor Kontak</label><input type="text" name="nomor_kontak" id="nomor_kontak"><br>
+        <label for="email">Email</label><input type="email" name="email" id="email"><br>
+        <label for="gedung">Gedung</label><input type="text" name="gedung" id="gedung"><br>
+        <label for="deskripsi_req">Deskripsi Request</label><input type="text" name="deskripsi_req" id="deskripsi_req"><br>
+
+        <p>Request Details</p>
+        <label for="tgl_terima">Tanggal Pengambilan/Penerimaan</label><input type="date" name="tgl_terima" id="tgl_terima"><br>
+        <label for="tgl_tiket">Tanggal Pembuatan Tiket</label><input type="datetime" name="tgl_tiket" id="tgl_tiket"><br>
+        <label for="lokasi_terima">Lokasi Penerimaan</label><input type="text" name="lokasi_terima" id="lokasi_terima"><br>
+        <label for="jenis_atk">Jenis Produk</label><br>
+        <select name="jenis_atk" id="jenis_atk">
+            <option value='' selected disabled hidden>Pilih Jenis ATK</option>
+            <% jenis_atk.forEach(jenis => { %>
+                <option><%= jenis %></option>    
+            <% });%>
+            <option value="Lainnya">Lainnya</option> 
+        </select><br>
+        <label for="nama_atk">Nama Produk</label><br>
+        <select name="nama_atk" id="nama_atk">
+            <option value='' selected disabled hidden>Pilih Produk</option>
+        </select>
+        <input type="text" name="nama_atk_lainnya" id="nama_atk_lainnya" style="display: none;"><br>
+        <label for="jumlah">Jumlah Produk</label><br>
+        <input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
+        <label for="deskripsi_atk">Deskripsi Produk</label><br>
+        <textarea name="deskripsi_atk" id="deskripsi_atk" cols="30" rows="5"></textarea><br>
+
+        <button type="button" id="add-item">Add</button>
+        <table border="1">
+            <tr>
+                <th>Nama Produk</th>
+                <th>Jenis Produk</th>
+                <th>Jumlah</th>
+                <th>Deskripsi Produk</th>
+                <th></th>
+            </tr>
+            <tbody id="item-list"></tbody>
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="/scripts/atk/listAtk.js"></script>
+    <script src="/scripts/atk/itemAtk.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 
 const atkController = require('./controllers/atkController')
+const eventSuppController = require('./controllers/eventSuppController')
 
 const app = express() // setup app server
 
@@ -12,7 +13,7 @@ let uri = "mongodb://ahmadafdhalx:test12345@ac-pddnmoq-shard-00-00.zxmupfd.mongo
 // connect to mongoDB
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true, ssl: true})
     .then((result) => {
-        console.log('> Connected to database!')
+        console.log('> Connected to database!\n> https://localhost:3000')
         app.listen(3000)
     }) // listen for request on port
     .catch((err) => console.log(err))
@@ -24,7 +25,7 @@ app.set('view engine','ejs') // set ejs as view engine
 app.use(express.static('public')) // static file public
 app.use(morgan('dev')) // middleware information
 app.use(express.urlencoded({ extended: true })) // url encoder request ke json
-
+app.use(express.json())
 
 
 
@@ -32,7 +33,9 @@ app.use(express.urlencoded({ extended: true })) // url encoder request ke json
 // route get to /request ATK
 app.get('/request/atk', atkController.atk_jenis)
 app.post('/atk-produk', atkController.atk_produk)
+app.post('/atk-request', atkController.atk_request)
 
-
-
+// route get to /request event support
+app.get('/request/eventsupp', eventSuppController.eventsupp_jenis)
+app.post('/eventsupp-request', eventSuppController.eventsupp_request)
 

@@ -34,10 +34,11 @@ jenisAtk.addEventListener('change', () => {
                 });
             }
         })
+        .catch((err) => {
+            console.log(err)
+        })
 });
 
 listAtk.addEventListener('change', () => {
     document.querySelector('#jumlah').max = listAtk.options[listAtk.selectedIndex].dataset.jumlah
 })
-
-// TODO BUAT POST REQUEST AGAR MENGIRIM GENERAL DAN TABEL ITEMLIST DATA

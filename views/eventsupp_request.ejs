@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Event Support</title>
+</head>
+<body>
+    <h1>Request Event Support</h1>
+    <form id="form-request">
+        <%- include('./partials/form_general_info.ejs') %> 
+
+        <p>Request Details</p>
+        <label for="jumlah_peserta">Jumlah Peserta</label><input type="number" name="jumlah_peserta" id="jumlah_peserta"><br>
+        <label for="lokasi_kegiatan">Lokasi Kegiatan</label><input type="text" name="lokasi_kegiatan" id="lokasi_kegiatan"><br>
+        <label for="tgl_mulai">Tanggal Mulai</label><input type="date" name="tgl_mulai" id="tgl_mulai"><br>
+        <label for="tgl_selesai">Tanggal Selesai</label><input type="date" name="tgl_selesai" id="tgl_selesai"><br>
+
+        <label for="nama_item">Nama Item</label><br>
+        <select name="nama_item" id="nama_item">
+            <option value='' selected disabled hidden>Pilih Nama Item</option>
+            <% nama_item.forEach(jenis => { %>
+                <option><%= jenis %></option>    
+            <% });%>
+            <option value="Lainnya">Lainnya</option> 
+        </select>
+        <input type="text" name="nama_item_lainnya" id="nama_item_lainnya" style="display: none;"><br>
+        <label for="jumlah">Jumlah Item</label><br><input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
+        <label for="desc_item">Deskripsi Item</label><br><textarea name="desc_item" id="desc_item" cols="30" rows="5"></textarea><br>
+        <button type="button" id="add-item">Add</button>
+
+        <table border="1" id="item">
+            <tr>
+                <th>Nama Item</th>
+                <th>Jumlah Item</th>
+                <th>Deskripsi Item</th>
+                <th id="del-td"></th>
+            </tr>
+            <tbody id="item-list"></tbody>
+        </table>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+    <script src="/scripts/event_support/itemEventSupp.js"></script>
+    <script src="/scripts/event_support/requestItemSupp.js"></script>
+</body>
+</html>

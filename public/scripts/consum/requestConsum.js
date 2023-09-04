@@ -11,18 +11,18 @@ document.querySelector('#form-request').addEventListener('submit', () => {
     email = document.querySelector('#email').value
     gedung = document.querySelector('#gedung').value
     desc_req = document.querySelector('#desc_req').value
-    
-    tgl_terima = document.querySelector('#tgl_terima').value
-    lokasi_terima = document.querySelector('#lokasi_terima').value    
 
-    fetch('/atk-request', {
+    tgl_terima = document.querySelector('#tgl_terima').value
+    lokasi_terima = document.querySelector('#lokasi_terima').value
+
+    fetch('/consum-request', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             'ticket':{
-                'jenis_ticket': 'ATK',
+                'jenis_ticket': 'Consumables',
                 'req_by': req_by,
                 'req_for': req_for,
                 'no_pekerja': no_pekerja,
@@ -35,10 +35,10 @@ document.querySelector('#form-request').addEventListener('submit', () => {
                 'status': 'In Progress',
                 'desc_req': desc_req,
             },
-            'atk_ticket':{
+            'consum_ticket':{
                 'tgl_terima': tgl_terima,
                 'lokasi_terima': lokasi_terima,
-                'item_atk': itemList
+                'item_consum': itemList
             }
             
         })

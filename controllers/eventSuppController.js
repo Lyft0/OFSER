@@ -36,7 +36,6 @@ const eventsupp_request = (req, res) => {
         })
 }
 
-
 module.exports = {
     eventsupp_jenis,
     eventsupp_request,

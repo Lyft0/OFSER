@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Nama</title>
+</head>
+<body>
+    <h1>Request Kartu Nama</h1>
+    <form id="form-request">
+        <%- include('./partials/form_general_info.ejs') %> 
+
+        <p>Request Details</p>
+        <label for="tgl_terima">Tanggal Pengambilan/Penerimaan</label><input type="date" name="tgl_terima" id="tgl_terima"><br>
+        <label for="lokasi_terima">Lokasi Penerimaan</label><input type="text" name="lokasi_terima" id="lokasi_terima"><br>
+
+        <label for="no_pekerja_kartu">Nomor Pekerja</label><input type="text" name="no_pekerja_kartu" id="no_pekerja_kartu"><br>
+        <label for="nama_pekerja">Nama Pekerja</label><input type="text" name="nama_pekerja" id="nama_pekerja"><br>
+        <label for="jabatan">Jabatan</label><input type="text" name="jabatan" id="jabatan"><br>
+        <label for="fungsi_kartu">Fungsi</label><input type="text" name="fungsi_kartu" id="fungsi_kartu"><br>
+        <label for="direktorat">Direktorat</label><input type="text" name="direktorat" id="direktorat"><br>
+        <label for="alamat_kantor">Alamat Kantor</label><input type="text" name="alamat_kantor" id="alamat_kantor"><br>
+        <label for="desc_tambah">Deskripsi Tambahan</label><br>
+        <textarea name="desc_tambah" id="desc_tambah" cols="30" rows="5"></textarea><br>
+
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+    <script src="/scripts/kartunama/requestKartunama.js"></script>
+</body>
+</html>

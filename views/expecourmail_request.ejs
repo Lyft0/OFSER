@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expedition, Courier, and Mail</title>
+</head>
+<body>
+    <h1>Request Expedition, Courier, and Mail</h1>
+    <form id="form-request">
+        <%- include('./partials/form_general_info.ejs') %> 
+
+        <p>Request Details</p>
+        <label for="jenis_kirim">Jenis Pengiriman</label><br>
+        <input type="radio" name="jenis_kirim" id="internal" value="Internal"><label for="internal">Internal</label><br>
+        <input type="radio" name="jenis_kirim" id="eksternal" value="Eksternal"><label for="eksternal">Eksternal</label><br>
+
+        <label for="tgl_kirim">Tanggal Pengiriman</label><input type="date" name="tgl_kirim" id="tgl_kirim"><br>
+        <label for="jam_kirim">Jam Pengiriman</label><input type="time" name="jam_kirim" id="jam_kirim"><br>
+        <label for="nama_kirim">Nama Pengirim</label><input type="text" name="nama_kirim" id="nama_kirim"><br>
+        <label for="lokasi_kirim">Lokasi Pengirim</label><input type="text" name="lokasi_kirim" id="lokasi_kirim"><br>
+        <label for="nama_terima">Nama Penerima</label><input type="text" name="nama_terima" id="nama_terima"><br>
+        <label for="lokasi_terima">Lokasi Penerima</label><input type="text" name="lokasi_terima" id="lokasi_terima"><br>
+        <label for="kontak_terima">Kontak Penerima</label><input type="tel" name="kontak_terima" id="kontak_terima"><br>
+        
+        <label for="jenis_barang">Jenis Barang/Dokumen</label><br>
+        <input type="checkbox" name="barang" value="Barang" id="barang"><label for="barang">Barang</label><br>
+        <input type="checkbox" name="dokumen" value="Dokumen" id="dokumen"><label for="dokumen">Dokumen</label><br>
+        <input type="checkbox" name="lainnya" value="Lainnya" id="lainnya"><label for="lainnya">Lainnya</label><br>
+        
+        <label for="jumlah">Jumlah Barang/Dokumen</label><input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
+        <label for="desc_barang">Deskripsi Barang/Dokumen</label><br>
+        <textarea name="desc_barang" id="desc_barang" cols="30" rows="5"></textarea><br>
+
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+    <script src="/scripts/expecourmail/requestExpecourmail.js"></script>
+</body>
+</html>

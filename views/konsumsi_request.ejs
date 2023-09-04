@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Konsumsi</title>
+</head>
+
+<body>
+    <h1>Request Konsumsi</h1>
+    <form id="form-request">
+        <%- include('./partials/form_general_info.ejs') %>
+
+        <p>Request Details</p>
+        <label for="kegiatan">Jenis Kegiatan</label><br>
+        <select name="kegiatan" id="kegiatan">
+            <option value='' selected disabled hidden>Pilih Jenis Kegiatan</option>
+            <option value="Event">Event</option>
+            <option value="Rapat">Rapat</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Training">Training</option>
+        </select><br>
+        <label for="desc_kegiatan">Deskripsi Kegiatan</label><input type="text" name="desc_kegiatan" id="desc_kegiatan"><br>
+        <label for="tgl_mulai">Tanggal Mulai</label><input type="date" name="tgl_mulai" id="tgl_mulai"><br>
+        <label for="tgl_selesai">Tanggal Selesai</label><input type="date" name="tgl_selesai" id="tgl_selesai"><br>
+        <label for="jam_mulai">Jam Mulai</label><input type="time" name="jam_mulai" id="jam_mulai"><br>
+        <label for="jam_selesai">Jam Selesai</label><input type="time" name="jam_selesai" id="jam_selesai"><br>
+        <label for="lokasi_kegiatan">Lokasi Kegiatan</label><input type="text" name="lokasi_kegiatan"id="lokasi_kegiatan"><br>
+
+        <label for="jumlah_hari">Permintaan Konsumsi untuk berapa hari?</label><br>
+        <select name="jumlah_hari" id="jumlah_hari">
+            <option value='' selected disabled hidden>Pilih Jumlah Hari</option>
+            <option value=1>1 Hari</option>
+            <option value=2>2 Hari</option>
+            <option value=3>3 Hari</option>
+        </select><br>
+        <table border="1" id="item">
+            <tr>
+                <th>Hari</th>
+                <th>Jenis Konsumsi</th>
+                <th>Paket Konsumsi</th>
+                <th>Jumlah Paket</th>
+                <th id="del_td"></th>
+            </tr>
+            <tbody id="item-list">
+            </tbody>
+        </table>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+    
+    <script>
+    let hari = 0
+    let itemList = []
+    document.getElementById('jumlah_hari').addEventListener('change',(event) => {
+        var table = document.getElementById("item-list")
+        table.innerHTML = ''
+        itemList = []
+        hari = event.target.value
+        for(let i=0; i<event.target.value; i++){
+            var row = table.insertRow(-1)
+            var hari_td = row.insertCell(0)
+            var jenis_kom_td = row.insertCell(1)
+            var paket_kom_td = row.insertCell(2)
+            var jumlah_kom_td = row.insertCell(3)
+            var delete_td = row.insertCell(4)
+
+            hari_td.innerHTML = i+1
+            jenis_kom_td.innerHTML = 
+                `<select name="jenis_konsum" id="jenis_konsum_${i}">
+                <option value='' selected disabled hidden>Pilih Jenis Konsumsi</option>
+                <% jenis_konsumsi.forEach(jenis => { %>
+                    <option><%= jenis %></option>    
+                <% });%>
+                </select>`
+            paket_kom_td.innerHTML = 
+                `<select name="paket_konsum" id="paket_konsum_${i}">
+                    <option value='' selected disabled hidden>Pilih Paket</option>
+                </select>`
+            jumlah_kom_td.innerHTML = `<input type="number" name="jumlah" id="jumlah_${i}" min="1" value="1">`
+            delete_td.innerHTML = `<button type="button" class="delete_td">Delete</button>`
+        
+            const jenisKonsum = document.getElementById(`jenis_konsum_${i}`);
+            const listPaket = document.getElementById(`paket_konsum_${i}`);
+            
+            jenisKonsum.addEventListener('change', () => {
+                const selectedJenis = jenisKonsum.value;        
+                fetch('/konsumsi-paket', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `jenis=${selectedJenis}`,
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    listPaket.innerHTML = ''
+                    listPaket.innerHTML = `<option value='' selected disabled hidden>Pilih Paket</option>`
+
+                    document.querySelector(`#jumlah_${i}`).value = 1
+
+                    data.paket.forEach(paket => {
+                        const option = document.createElement('option')
+                        option.value = paket.nama_paket
+                        option.textContent = paket.nama_paket
+                        listPaket.appendChild(option)
+                    });
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            })
+        }
+    })
+    </script>
+    <script src="/scripts/konsumsi/requestKonsumsi.js"></script>
+</body>
+
+</html>

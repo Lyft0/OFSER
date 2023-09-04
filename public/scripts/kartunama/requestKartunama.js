@@ -1,6 +1,6 @@
 document.querySelector('#form-request').addEventListener('submit', () => {
     event.preventDefault();
-    console.log('hell')
+    
     req_by = document.querySelector('#req_by').value
     req_for = document.querySelector('#req_for').value
     no_pekerja = document.querySelector('#no_pekerja').value
@@ -12,19 +12,24 @@ document.querySelector('#form-request').addEventListener('submit', () => {
     gedung = document.querySelector('#gedung').value
     desc_req = document.querySelector('#desc_req').value
 
-    jumlah_peserta = document.querySelector('#jumlah_peserta').value
-    lokasi_kegiatan = document.querySelector('#lokasi_kegiatan').value
-    tgl_mulai = document.querySelector('#tgl_mulai').value
-    tgl_selesai = document.querySelector('#tgl_selesai').value    
+    tgl_terima = document.querySelector('#tgl_terima').value
+    lokasi_terima = document.querySelector('#lokasi_terima').value
+    no_pekerja_kartu = document.querySelector('#no_pekerja_kartu').value
+    nama_pekerja = document.querySelector('#nama_pekerja').value
+    jabatan = document.querySelector('#jabatan').value
+    fungsi_kartu = document.querySelector('#fungsi_kartu').value
+    direktorat = document.querySelector('#direktorat').value
+    alamat_kantor = document.querySelector('#alamat_kantor').value
+    desc_tambah = document.querySelector('#desc_tambah').value
 
-    fetch('/eventsupp-request', {
+    fetch('/kartunama-request', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             'ticket':{
-                'jenis_ticket': 'Event Support',
+                'jenis_ticket': 'Kartu Nama',
                 'req_by': req_by,
                 'req_for': req_for,
                 'no_pekerja': no_pekerja,
@@ -37,14 +42,17 @@ document.querySelector('#form-request').addEventListener('submit', () => {
                 'status': 'In Progress',
                 'desc_req': desc_req,
             },
-            'eventsupp_ticket':{
-                'jumlah_peserta': jumlah_peserta,
-                'lokasi_kegiatan': lokasi_kegiatan,
-                'tgl_mulai': tgl_mulai,
-                'tgl_selesai': tgl_selesai,
-                'item_eventsupp': itemList
+            'kartunama_ticket':{
+                'tgl_terima': tgl_terima,
+                'lokasi_terima': lokasi_terima,
+                'no_pekerja_kartu': no_pekerja_kartu,
+                'nama_pekerja': nama_pekerja,
+                'jabatan': jabatan,
+                'fungsi_kartu': fungsi_kartu,
+                'direktorat': direktorat,
+                'alamat_kantor': alamat_kantor,
+                'desc_tambah': desc_tambah,
             }
-            
         })
     })
         .then((response) => response.json())

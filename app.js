@@ -12,6 +12,7 @@ const rtkController = require('./controllers/rtkController')
 const expecourmailController = require('./controllers/expecourmailController')
 const kartunamaController = require('./controllers/kartunamaController')
 
+const userController = require('./controllers/userController')
 
 
 const app = express() // setup app server
@@ -65,4 +66,19 @@ app.post('/konsumsi-paket', konsumsiController.konsumsi_paket)
 app.post('/konsumsi-request', konsumsiController.konsumsi_request)
 // app.post('/konsumsi-produk', konsumsiController.konsumsi_produk)
 
-app.get('/requests')
+// login page
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+app.post('/login-user', userController.user_login)
+app.get('/home-req', (req, res) => {
+    res.render('home_requester')
+})
+app.get('/home-ful', (req, res) => {
+    res.render('home_fulfiller')
+})
+
+
+
+
+

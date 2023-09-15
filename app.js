@@ -2,8 +2,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const helmet = require("helmet");
+const cookieparser = require("cookie-parser");
 // import controller
-const atkController = require('./controllers/atkController')
 const eventSuppController = require('./controllers/eventSuppController')
 const consumController = require('./controllers/consumController')
 const konsumsiController = require('./controllers/konsumsiController')
@@ -11,8 +12,10 @@ const workfurnController = require('./controllers/workfurnController')
 const rtkController = require('./controllers/rtkController')
 const expecourmailController = require('./controllers/expecourmailController')
 const kartunamaController = require('./controllers/kartunamaController')
-
 const userController = require('./controllers/userController')
+const ticketController = require('./controllers/ticketController')
+// import routes
+const atkRoute = require('./routes/atkRoute')
 
 
 const app = express() // setup app server
@@ -35,12 +38,19 @@ app.use(express.static('public')) // static file public
 app.use(morgan('dev')) // middleware information
 app.use(express.urlencoded({ extended: true })) // url encoder request ke json
 app.use(express.json())
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+      },
+    })
+  );
+app.use(cookieparser());
 
 // routes
 // route to /request ATK
-app.get('/request/atk', atkController.atk_jenis)
-app.post('/atk-produk', atkController.atk_produk)
-app.post('/atk-request', atkController.atk_request)
+app.use(atkRoute)
 // route to /request event support
 app.get('/request/eventsupp', eventSuppController.eventsupp_jenis)
 app.post('/eventsupp-request', eventSuppController.eventsupp_request)
@@ -64,7 +74,6 @@ app.post('/kartunama-request', kartunamaController.kartunama_request)
 app.get('/request/konsumsi', konsumsiController.konsumsi_jenis)
 app.post('/konsumsi-paket', konsumsiController.konsumsi_paket)
 app.post('/konsumsi-request', konsumsiController.konsumsi_request)
-// app.post('/konsumsi-produk', konsumsiController.konsumsi_produk)
 
 // login page
 app.get('/login', (req, res) => {
@@ -77,8 +86,20 @@ app.get('/home-req', (req, res) => {
 app.get('/home-ful', (req, res) => {
     res.render('home_fulfiller')
 })
+// requester page
+app.get('/my-request/:id', userController.my_request)
+// delete ticket
+app.delete('/delete-ticket/:user/:id', ticketController.delete_ticket)
+// get ticket detail
+app.post('/ticket-print', ticketController.print_ticket)
 
+// ticket-console page
+app.get('/ticket-console', userController.all_ticket)
+// one ticket request and work order
+app.get('/ticket-request/:id', ticketController.ticket_request)
+app.get('/ticket-workorder/:id', ticketController.ticket_workorder)
 
-
-
+app.post('/assignee', ticketController.user_assignee)
+app.post('/set_status', ticketController.set_status)
+app.post('/new_activity', ticketController.new_activity)
 

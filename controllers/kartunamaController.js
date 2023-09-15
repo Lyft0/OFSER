@@ -4,7 +4,7 @@ const KartunamaTicket = require('../models/kartunamaTicketModel');
 
 // menampilkan kartu nama page
 const page = (req, res) => {
-    res.render('kartunama_request')
+    res.render('request_form/kartunama_request')
 }
 
 const kartunama_request = (req, res) => {

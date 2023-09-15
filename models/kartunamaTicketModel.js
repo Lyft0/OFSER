@@ -12,6 +12,7 @@ const kartunamaTicketSchema = new Schema({ // instance dari Schema
     direktorat: {type: String, required: true},
     alamat_kantor: {type: String, required: true},
     desc_tambah: {type: String, required: true},
+    sla: {type: Number, required: true},
 }) // constructor untuk generate timestamp update
 
 // model kartunama untuk digunakan save, get, delete data

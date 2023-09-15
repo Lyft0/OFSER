@@ -44,7 +44,6 @@ document.querySelector('#item').addEventListener("click", function(event) {
     }
 })
 
-// TODO change select tag
 const listItem = document.getElementById('nama_produk');
 listItem.addEventListener(('change'), () => {
     if(listItem.value == "Lainnya"){

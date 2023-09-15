@@ -4,7 +4,7 @@ const ExpecourmailTicket = require('../models/expecourmailTicketModel');
 
 // menampilkan jenis expecourmail
 const page = (req, res) => {
-    res.render('expecourmail_request')
+    res.render('request_form/expecourmail_request')
 }
 
 const expecourmail_request = (req, res) => {

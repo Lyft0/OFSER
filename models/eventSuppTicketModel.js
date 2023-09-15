@@ -7,6 +7,7 @@ const eventsuppTicketSchema = new Schema({ // instance dari Schema
     lokasi_kegiatan: {type: String, required: true},
     tgl_mulai: {type: Date, required: true},
     tgl_selesai: {type: Date, required: true},
+    sla: {type: Number, required: true},
     item_eventsupp: {type: Object, required: true},
 }) // constructor untuk generate timestamp update
 

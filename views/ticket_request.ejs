@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>OFSER | Home</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-1">
+            <p>OFSER</p>
+            <a href="/home-req">Dashboard</a>
+            <a href="/ticket-console">Ticket Console</a>
+            <div class="search-group">
+                <input type="search" id="input-search" placeholder="Request ID"/>
+                <button type="button" id="btn-search">Search</button>   
+            </div>
+        </div>
+        <div class="navbar-2">
+            <a href="#">Notification</a>
+            <p>Welcome, <span id="user-name">Lucifer</span></p>
+            <a href="#">Profile</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <p id="content-title">Ticket Request</p>
+        <p id="jenis_ticket" style="font-size: 1.5em; font-weight: bold;" data-ticket="<%= ticket._id %>"><%= ticket.jenis_ticket %> - Request</p>
+        
+        <div class="tab-group-req">
+            <div class="req-tab">
+                <div style="display: flex; justify-content: space-between; align-items: center;margin-bottom: 15px; border-top: 1px solid black; padding: 15px 15px; border-bottom: 1px solid black;">
+                    <div>
+                        <table style="font-size: 0.93em;">
+                            <tr><td>Service Request</td><td style="padding-left: 20px;">: <%= ticket.request_id %></td></tr>
+                            <tr><td>Status</td><td style="padding-left: 20px;">: <%= ticket.status %></td></tr>
+                            <tr><td>Ticket Created At</td><td style="padding-left: 20px;">: <%= ticket.createdAt.toUTCString().slice(5, -4  ) %></td></tr>
+                        </table>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-workorder" style="width: 100px; height: fit-content;" data-ticket="<%= ticket._id %>">Work Order</button>
+                        <button type="button" class="btn-print" style="width: 100px; height: fit-content;" data-ticket="<%= ticket._id %>">Print Ticket</button>
+                    </div>
+                </div>
+                <div class="req-info">
+                    <div class="user-info">
+                        <img src="#" alt="profile" style="width: 80px; height: 80px; border: 1px solid black;">
+                        <div class="user-infos">
+                            <p style="font-size: 0.9em; margin-bottom: 4px;">Customer</p>
+                            <p style="font-size: 1.2em; font-weight: bold;"><%= ticket.nama_req %></p>
+                            <p style="font-size: 0.9em;"><%= ticket.fungsi %></p>
+                            <p style="font-size: 0.9em;"><%= ticket.email %></p>
+                        </div>
+                    </div>
+                    <div class="req-detail">
+                        <p style="margin-bottom: 10px;">Request Detail:</p>
+                        <table>
+                            <tr><td>Submitted</td><td style="padding-left: 20px;">: <%= ticket.createdAt.toUTCString() %></td></tr>
+                            <tr><td>Last Updated</td><td style="padding-left: 20px;">: <%= ticket.updatedAt.toUTCString() %></td></tr>
+                            <tr><td>Requested By</td><td style="padding-left: 20px;">: <%= ticket.req_by %></td></tr>
+                            <tr><td>Requested For</td><td style="padding-left: 20px;">: <%= ticket.req_for %></td></tr>
+                            <tr><td>Company</td><td style="padding-left: 20px;">: <%= ticket.perusahaan %></td></tr>
+                            <tr><td>Phone</td><td style="padding-left: 20px;">: <%= ticket.no_kontak %></td></tr>
+                            <tr><td>Email</td><td style="padding-left: 20px;">: <%= ticket.email %></td></tr>
+                            <tr><td>Building</td><td style="padding-left: 20px;">: <%= ticket.gedung %></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-tab">
+                <p style="font-size: 1.2em; font-weight: bold;">Activity</p>
+                <input id="activity-note" type="text" placeholder="Add a note" style="font-size: 0.9em;width: 320px; border-radius: 10px; height: 35px; padding: 10px;">
+                <div class="activity-list">
+                    <% ticket.activity.forEach(activity => { %>
+                        <div class="activity-user">
+                            <img src="#" alt="profile" style="border: 1px solid black; width: 40px; height: 40px;">
+                            <div class="msg-detail">
+                                <p id="act-msg" style="font-size: 0.85em;"><%= activity.msg %></p>
+                                <p style="font-size: 0.7em; margin-top: 8px;">By <%= activity.nama %></p>
+                                <p id="act-date" style="font-size: 0.7em;"><%= activity.tgl %></p>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                
+            </div>
+        </div>
+
+
+    
+    
+    </div>
+        
+    <div class="footer">
+        <p>Kontak Admin</p>
+        <div>
+            <p>Whatsapp: +62-85263422340</p>
+            <p>Email: lyft0@protonmail.com</p>
+        </div>
+    </div>
+
+    <script src="/scripts/home/getCookies.js"></script>
+    <script src="/scripts/home/printTicket.js"></script>
+    <script>
+        document.querySelector(".btn-workorder").addEventListener('click', () => {
+            window.location.href = '/ticket-workorder/'+event.currentTarget.dataset.ticket
+        })
+
+        var endpoint = 'ticket-request'
+    </script>
+    <script src="/scripts/home/activity.js"></script>
+</body>
+</html>

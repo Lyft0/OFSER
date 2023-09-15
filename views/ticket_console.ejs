@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>OFSER | Home</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-1">
+            <p>OFSER</p>
+            <a href="/home-req">Dashboard</a>
+            <a href="/ticket-console">Ticket Console</a>
+            <div class="search-group">
+                <input type="search" id="input-search" placeholder="Request ID"/>
+                <button type="button" id="btn-search">Search</button>   
+            </div>
+        </div>
+        <div class="navbar-2">
+            <a href="#">Notification</a>
+            <p>Welcome, <span id="user-name">Lucifer</span></p>
+            <a href="#">Profile</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <p id="content-title">Ticket Console</p>
+
+        <div class="console">
+            <div class="info-number">
+                
+            </div>
+            <div class="table-ticket">
+                <table border="1" id="table-ticket">
+                    <tr><th>Priority</th><th>Request ID</th><th>Work Order ID</th><th>Customer Name</th><th>Assignee</th><th>Summary</th><th>Status</th><th>Created At</th><th>Last Modified</th></tr>
+                    <tbody id="tbody"> 
+                        <% let i=1 %> 
+                        <% ticket.forEach(t => { %>
+                            <tr id="row-<%= i %>" data-ticket="<%= t._id %>">
+                                <td><%= t.priority %></td>
+                                <td><%= t.request_id %></td>
+                                <td><%= t.workorder_id %></td>
+                                <td><%= t.nama_req %></td>
+                                <td><% if(t.assignee){ %><%= t.assignee %><% }else{ %>System<% } %></td>
+                                <td><%= t.jenis_ticket %></td>
+                                <td><%= t.status %></td>
+                                <td><%= t.createdAt.toUTCString().slice(5, -13) %></td>
+                                <td><%= t.updatedAt.toUTCString().slice(5, -13) %></td>                                
+                            </tr>
+                            <% i += 1 %> 
+                        <% }); %>     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+        
+    <div class="footer">
+        <p>Kontak Admin</p>
+        <div>
+            <p>Whatsapp: +62-85263422340</p>
+            <p>Email: lyft0@protonmail.com</p>
+        </div>
+    </div>
+
+    <script src="/scripts/home/getCookies.js"></script>
+    <script>
+        for(let i=1; i<=document.querySelector('#tbody').rows.length;i++){
+            document.querySelector('#row-'+i.toString()).addEventListener('click', (event) => {
+                window.location.href = '/ticket-request/'+event.currentTarget.dataset.ticket
+            })
+        }
+    </script>
+</body>
+</html>

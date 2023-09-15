@@ -8,7 +8,7 @@ const atk_jenis = (req, res) => {
     Atk.find()
         .then((result) => {
             const jenis_atk = _.keys(_.countBy(result, function(result) { return result.jenis_produk; }))
-            res.render('atk_request', { jenis_atk: jenis_atk.sort()}) // render file dengan view engine
+            res.render('request_form/atk_request', { jenis_atk: jenis_atk.sort()}) // render file dengan view engine
         })
         .catch((error) => {
             console.log(error)

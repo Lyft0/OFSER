@@ -8,7 +8,7 @@ const eventsupp_jenis = (req, res) => {
     EventSupp.find()
         .then((result) => {
             const nama_item = result.map(item => item.nama_item)
-            res.render('eventsupp_request', { nama_item: nama_item.sort()}) // render file dengan view engine
+            res.render('request_form/eventsupp_request', { nama_item: nama_item.sort()}) // render file dengan view engine
         })
         .catch((error) => {
             console.log(error)

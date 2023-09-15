@@ -14,6 +14,7 @@ const expecourmailTicketSchema = new Schema({ // instance dari Schema
     jenis_barang: {type: Object, required: true},
     jumlah: {type: Number, required: true},
     desc_barang: {type: String, required: true},
+    sla: {type: Number, required: true},
 }) // constructor untuk generate timestamp update
 
 // model expecourmail untuk digunakan save, get, delete data

@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Login</title>
 </head>
 <body>
-    <form id="login">
-        <label for="email">Email</label><input type="email" name="email" id="email"><br>
-        <label for="password">Password</label><input type="password" name="password" id="password"><br>
-        <button type="submit">Login</button>
-    </form>
-    <script>
-        document.getElementById('login').addEventListener('submit', (event) => {
-            event.preventDefault()
-            fetch('/login-user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'email': document.getElementById('email').value,
-                    'password': document.getElementById('password').value,
-                })
-            })
-            .then((response) => response.json())
-            .then((data) => window.location.href = data.redirect)
-            .catch((err) => {
-                console.log(err)
-            })
-        })
-            
-    </script>
+    <div class="content-login">
+        <div class="wrapper-login">
+            <p style="font-weight: bold;font-size: 1.4em;margin-bottom: 10px;">OFFSER</p>
+            <p style="font-size: 0.9em;margin-bottom: 30px;">Office Facility Service Request</p>
+            <form id="login">
+                <label for="email">Email</label><br><input type="email" name="email" id="email"><br>
+                <label for="password">Password</label><br><input type="password" name="password" id="password"><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Kontak Admin</p>
+        <div>
+            <p>Whatsapp: +62-85263422340</p>
+            <p>Email: lyft0@protonmail.com</p>
+        </div>
+    </div>
+
+    <script src="/scripts/user/userLogin.js"></script>
 </body>
 </html>

@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consumables</title>
+    <title>RTK</title>
 </head>
 <body>
-    <h1>Request Consumables</h1>
+    <h1>Request RTK</h1>
     <form id="form-request">
-        <%- include('./partials/form_general_info.ejs') %> 
+        <%- include('../partials/form_general_info.ejs') %> 
 
         <p>Request Details</p>
         <label for="tgl_terima">Tanggal Pengambilan/Penerimaan</label><input type="date" name="tgl_terima" id="tgl_terima"><br>
         <label for="lokasi_terima">Lokasi Penerimaan</label><input type="text" name="lokasi_terima" id="lokasi_terima"><br>
         
-        <label for="nama_produk">Nama Produk</label><br>
-        <select name="nama_produk" id="nama_produk">
-            <option value='' selected disabled hidden>Pilih Nama Produk</option>
-            <% nama_produk.forEach(jenis => { %>
+        <label for="jenis_produk">Jenis Produk</label><br>
+        <select name="jenis_produk" id="jenis_produk">
+            <option value='' selected disabled hidden>Pilih Jenis Produk</option>
+            <% jenis_produk.forEach(jenis => { %>
                 <option><%= jenis %></option>    
             <% });%>
             <option value="Lainnya">Lainnya</option> 
         </select>
-        <input type="text" name="nama_produk_lainnya" id="nama_produk_lainnya" style="display: none;"><br>
+        <input type="text" name="jenis_produk_lainnya" id="jenis_produk_lainnya" style="display: none;"><br>
         <label for="jumlah">Jumlah Produk</label><br><input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
         <label for="desc_produk">Deskripsi Produk</label><br><textarea name="desc_produk" id="desc_produk" cols="30" rows="5"></textarea><br>
         <button type="button" id="add-item">Add</button>
 
         <table border="1" id="item">
             <tr>
-                <th>Nama Produk</th>
+                <th>Jenis Produk</th>
                 <th>Jumlah Produk</th>
                 <th>Deskripsi Produk</th>
                 <th id="del-td"></th>
@@ -39,7 +39,8 @@
         <button type="submit" id="submit">Submit</button>
     </form>
 
-    <script src="/scripts/consum/itemConsum.js"></script>
-    <script src="/scripts/consum/requestConsum.js"></script>
+    <script src="/scripts/rtk/itemRtk.js"></script>
+    <script src="/scripts/rtk/requestRtk.js"></script>
+    <script src="/scripts/cookiesGeneralInfo.js"></script>
 </body>
 </html>

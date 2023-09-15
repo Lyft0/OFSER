@@ -15,6 +15,15 @@ const TicketSchema = new Schema({ // instance dari Schema
     gedung: {type: String, required: true},
     status: {type: String, required: true},
     desc_req: {type: String, required: true},
+    id_user_req: {type: String, required: true},
+
+    request_id: {type: String, required: false},
+    workorder_id: {type: String, required: false},
+    assignee: {type: String, required: false},
+    priority: {type: String, required: false},
+    progress_sla: {type: String, required: false},
+    activity: {type: Object, required: false},
+
     id_ticket_detail: {type: String, required: true},
 }, { timestamps: true}) // constructor untuk generate timestamp update
 

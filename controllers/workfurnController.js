@@ -8,7 +8,7 @@ const workfurn_jenis = (req, res) => {
     Workfurn.find()
         .then((result) => {
             const jenis_workfurn = _.keys(_.countBy(result, function(result) { return result.jenis_produk; }))
-            res.render('workfurn_request', { jenis_workfurn: jenis_workfurn.sort()}) // render file dengan view engine
+            res.render('request_form/workfurn_request', { jenis_workfurn: jenis_workfurn.sort()}) // render file dengan view engine
         })
         .catch((error) => {
             console.log(error)

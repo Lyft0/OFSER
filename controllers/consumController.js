@@ -8,7 +8,7 @@ const consum_jenis = (req, res) => {
     Consum.find()
         .then((result) => {
             const nama_produk = result.map(item => item.nama_produk)
-            res.render('consum_request', { nama_produk: nama_produk.sort()}) // render file dengan view engine
+            res.render('request_form/consum_request', { nama_produk: nama_produk.sort()}) // render file dengan view engine
         })
         .catch((error) => {
             console.log(error)

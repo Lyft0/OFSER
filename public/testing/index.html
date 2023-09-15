@@ -1,0 +1,32 @@
+<!-- index.html (Main Page) -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Generator</title>
+</head>
+<body>
+    <h1>Invoice Generator</h1>
+
+    <!-- Input fields for custom data -->
+    <label for="customerName">Customer Name:</label>
+    <input type="text" id="customerName" placeholder="Enter customer's name"><br>
+
+    <label for="invoiceNumber">Invoice Number:</label>
+    <input type="text" id="invoiceNumber" placeholder="Enter invoice number"><br>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" placeholder="Enter invoice amount"><br>
+
+    <!-- Button to generate PDF -->
+    <button id="generatePDF"">Generate Invoice PDF</button>
+
+    <!-- PDF container -->
+    <div id="pdfContainer"></div>
+
+    <!-- JavaScript for generating PDF -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.6.0/dist/jspdf.plugin.autotable.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

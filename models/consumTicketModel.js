@@ -5,6 +5,7 @@ const Schema = mongoose.Schema // Schema object
 const consumTicketSchema = new Schema({ // instance dari Schema
     tgl_terima: {type: Date, required: true},
     lokasi_terima: {type: String, required: true},
+    sla: {type: Number, required: true},
     item_consum: {type: Object, required: true},
 }) // constructor untuk generate timestamp update
 

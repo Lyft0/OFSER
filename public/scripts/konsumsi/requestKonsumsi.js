@@ -23,6 +23,10 @@ document.getElementById('form-request').addEventListener('submit', (event) => {
     gedung = document.querySelector('#gedung').value
     desc_req = document.querySelector('#desc_req').value
     
+    let cookies = decodeURIComponent(document.cookie.slice(9))
+    cookies = JSON.parse(cookies)
+    id_user_req = cookies._id
+
     kegiatan = document.querySelector('#kegiatan').value
     desc_kegiatan = document.querySelector('#desc_kegiatan').value    
     tgl_mulai = document.querySelector('#tgl_mulai').value    
@@ -31,6 +35,16 @@ document.getElementById('form-request').addEventListener('submit', (event) => {
     jam_selesai = document.querySelector('#jam_selesai').value    
     lokasi_kegiatan = document.querySelector('#lokasi_kegiatan').value    
     jumlah_hari = document.querySelector('#jumlah_hari').value
+
+    let workorder_id = "WO" + Math.floor(1000 + Math.random() * 9000).toString()
+    let tgl_now = new Date()
+    let activity = []
+    
+    activity.push({
+        'nama': 'System',
+        'tgl': `${tgl_now.toLocaleDateString()}`,
+        'msg': `New ${workorder_id} Generated.`
+    })
 
     fetch('/konsumsi-request', {
         method: 'POST',
@@ -49,8 +63,15 @@ document.getElementById('form-request').addEventListener('submit', (event) => {
                 'no_kontak': no_kontak,
                 'email': email,
                 'gedung': gedung,
-                'status': 'In Progress',
+                'status': 'Waiting Approval',
                 'desc_req': desc_req,
+                'id_user_req': id_user_req,
+                'request_id': "REQ" + Math.floor(1000 + Math.random() * 9000).toString(),
+                'workorder_id': workorder_id,
+                'assignee': '',
+                'priority': '',
+                'progress_sla': '',
+                'activity': activity,
             },
             'konsumsi_ticket':{
                 'kegiatan': kegiatan,
@@ -61,6 +82,7 @@ document.getElementById('form-request').addEventListener('submit', (event) => {
                 'jam_selesai': jam_selesai,    
                 'lokasi_kegiatan': lokasi_kegiatan,   
                 'jumlah_hari': jumlah_hari,
+                'sla': 2,
                 'item_konsumsi': itemList
             }
             

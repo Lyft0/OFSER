@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>OFSER | My Request</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-1">
+            <p>OFSER</p>
+            <a href="/home-req">Home</a>
+            <a href="" id="my-request">My Request</a>
+        </div>
+        <div class="navbar-2">
+            <a href="#">Notification</a>
+            <p>Welcome, <span id="user-name"></span></p>
+            <a href="#">Profile</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <p id="content-title">My Request</p>
+        <div class="request-tab">
+            <div class="request-profile">
+                <div class="image-canvas">
+                    <img src="#" alt="profile_pic">
+                </div>
+                <div class="request-info">
+                    <p id="request-name"></p>
+                    <p id="info_">Info</p>
+                    <p id="request-email"></p>
+                </div>
+            </div>
+            <div class="request-list">
+                
+                <div class="ticket-list">
+                    <% let i = 1 %> 
+                    <% ticket.forEach(t => { %>
+                        <div class="ticket">
+                            <p id="ticket-date"><%= t.createdAt.toLocaleDateString() %> </p>
+                            <div class="line-dot">
+                                <img src="/images/my-request/circle-hole.png" alt="circle" width="10px" height="10px">
+                                <div class="line"></div>
+                            </div>
+                            <div class="ticket-bubble" data-ticket=<%= i %> >  
+                                <img src="#" alt="test" id="ticket-image">
+                                <div class="ticket-text">
+                                    <p id="ticket-type"><%= t.jenis_ticket %></p>
+                                    <span class="req-id">REQUEST ID: </span><span class="req-id req"><%= t.request_id %></span><br>
+                                    <div id="line-bubble"></div>
+                                    <span style="font-weight: bold;" class="status">Status: </span><span class="status stat"><%= t.status %> </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal <%= 'modal-'+i %>">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <span class="close <%= 'close-'+i %>">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="info-1">
+                                        <img src="#" alt="jenis-atk" style="border: 1px solid black;" width="70px" height="70px">
+                                        <div class="text-info-1">
+                                            <p style="font-weight: bold; font-size: 1.1em;"><%= t.jenis_ticket %> </p>
+                                            <p style="font-size: 0.8em;">REQUEST ID: <%= t.request_id %> </p>
+                                            <p style="font-size: 0.9em;">Status: <%= t.status %> </p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="info-2">
+                                        <div class="tab-1-info-2">
+                                            <p style="font-size: 0.94em">Requested By:</p>
+                                            <div class="req-info-2">
+                                                <p style="font-size: 1em; font-weight: bold;"><%= t.nama_req %> </p>
+                                                <p style="font-size: 0.8em;"><%= t.email %> </p>
+                                            </div>
+                                            <p style="font-size: 0.94em">Description:</p>
+                                            <p style="font-size: 0.84em; margin: 10px 0px 10px 25px;" id="desc-req"><%= t.desc_req %></p>
+                                        </div>
+                                        <div class="tab-2-info-2">
+                                            <button class="req-detail-button" style="font-weight: 400;">Request Details</button>
+                                            <div class="req-detail-text">
+                                                <table>
+                                                    <tr><td>Submitted</td><td style="padding-left: 20px;">: <%= t.createdAt.toUTCString() %></td></tr>
+                                                    <tr><td>Last Updated</td><td style="padding-left: 20px;">: <%= t.updatedAt.toUTCString() %></td></tr>
+                                                    <tr><td>Requested By</td><td style="padding-left: 20px;">: <%= t.req_by %></td></tr>
+                                                    <tr><td>Requested For</td><td style="padding-left: 20px;">: <%= t.req_for %></td></tr>
+                                                    <tr><td>Company</td><td style="padding-left: 20px;">: <%= t.perusahaan %></td></tr>
+                                                    <tr><td>Phone</td><td style="padding-left: 20px;">: <%= t.no_kontak %></td></tr>
+                                                    <tr><td>Email</td><td style="padding-left: 20px;">: <%= t.email %></td></tr>
+                                                    <tr><td>Building</td><td style="padding-left: 20px;">: <%= t.gedung %></td></tr>
+                                                </table>
+                                            </div>
+
+                                            <div class="btn-info-2">
+                                                <button class="btn-cancel btn-cancel-<%= i %>" data-ticket="<%= t._id %>">Cancel Request</button>
+                                                <button class="btn-print btn-print-<%= i %>" data-ticket="<%= t._id %>">Print Ticket</button>
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% i = i+1 %>
+                    <% }); %> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Kontak Admin</p>
+        <div>
+            <p>Whatsapp: +62-85263422340</p>
+            <p>Email: lyft0@protonmail.com</p>
+        </div>
+    </div>
+
+    <script src="/scripts/home/getCookies.js"></script>
+    <script>
+        document.querySelector('#request-name').textContent = nama
+        document.querySelector('#request-email').textContent = email
+    </script>
+    <script src="/scripts/home/ticketModal.js"></script>
+    <script src="/scripts/home/printTicket.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@ const konsumsi_jenis = (req, res) => {
     Konsumsi.find()
         .then((result) => {
             const jenis_konsumsi = _.keys(_.countBy(result, function(result) { return result.jenis_konsumsi; }))
-            res.render('konsumsi_request', { jenis_konsumsi: jenis_konsumsi.sort()}) // render file dengan view engine
+            res.render('request_form/konsumsi_request', { jenis_konsumsi: jenis_konsumsi.sort()}) // render file dengan view engine
         })
         .catch((error) => {
             console.log(error)

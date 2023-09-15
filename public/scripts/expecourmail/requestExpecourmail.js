@@ -12,6 +12,10 @@ document.querySelector('#form-request').addEventListener('submit', () => {
     gedung = document.querySelector('#gedung').value
     desc_req = document.querySelector('#desc_req').value
 
+    let cookies = decodeURIComponent(document.cookie.slice(9))
+    cookies = JSON.parse(cookies)
+    id_user_req = cookies._id
+
     jenis_kirim = (Array.from(document.getElementsByName("jenis_kirim")).find(radio => radio.checked)).value
     tgl_kirim = document.querySelector('#tgl_kirim').value
     jam_kirim = document.querySelector('#jam_kirim').value
@@ -35,6 +39,16 @@ document.querySelector('#form-request').addEventListener('submit', () => {
     jumlah = document.querySelector('#jumlah').value
     desc_barang = document.querySelector('#desc_barang').value
     
+    let workorder_id = "WO" + Math.floor(1000 + Math.random() * 9000).toString()
+    let tgl_now = new Date()
+    let activity = []
+    
+    activity.push({
+        'nama': 'System',
+        'tgl': `${tgl_now.toLocaleDateString()}`,
+        'msg': `New ${workorder_id} Generated.`
+    })
+
     fetch('/expecourmail-request', {
         method: 'POST',
         headers: {
@@ -42,7 +56,7 @@ document.querySelector('#form-request').addEventListener('submit', () => {
         },
         body: JSON.stringify({
             'ticket':{
-                'jenis_ticket': 'Expedition, Courier, & Mail',
+                'jenis_ticket': 'Expedition, Courier, & Mailing',
                 'req_by': req_by,
                 'req_for': req_for,
                 'no_pekerja': no_pekerja,
@@ -52,8 +66,15 @@ document.querySelector('#form-request').addEventListener('submit', () => {
                 'no_kontak': no_kontak,
                 'email': email,
                 'gedung': gedung,
-                'status': 'In Progress',
+                'status': 'Waiting Approval',
                 'desc_req': desc_req,
+                'id_user_req': id_user_req,
+                'request_id': "REQ" + Math.floor(1000 + Math.random() * 9000).toString(),
+                'workorder_id': workorder_id,
+                'assignee': '',
+                'priority': '',
+                'progress_sla': '',
+                'activity': activity,
             },
             'expecourmail_ticket':{
                 'jenis_kirim': jenis_kirim,
@@ -66,7 +87,8 @@ document.querySelector('#form-request').addEventListener('submit', () => {
                 'kontak_terima': kontak_terima,
                 'jenis_barang': jenis_barang,
                 'jumlah': jumlah,
-                'desc_barang': desc_barang
+                'desc_barang': desc_barang,
+                'sla': 10,
             }
             
         })

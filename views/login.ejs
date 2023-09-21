@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Login</title>
+    <title>OFSER | Login</title>
 </head>
 <body>
     <div class="content-login">
         <div class="wrapper-login">
-            <p style="font-weight: bold;font-size: 1.4em;margin-bottom: 10px;">OFFSER</p>
+            <p style="font-weight: bold;font-size: 2.3em;margin-bottom: -2px; font-family: 'League Spartan', sans-serif; color: rgb(2, 64, 135);">OFSER</p>
             <p style="font-size: 0.9em;margin-bottom: 30px;">Office Facility Service Request</p>
-            <form id="login">
-                <label for="email">Email</label><br><input type="email" name="email" id="email"><br>
-                <label for="password">Password</label><br><input type="password" name="password" id="password"><br>
-                <button type="submit">Login</button>
+            <form id="login" style="margin-top: 10px;">
+                <div>
+                    <label for="email" class="input-label">Email Address</label>
+                    <input type="email" name="email" class="input-login" id="email" placeholder="Enter email" style="font-size: 0.9em; margin-top: 10px;" required>
+                </div>
+                <div style="margin-top: 10px;">
+                    <label for="password" class="input-label">Password</label>
+                    <input type="password" name="password" class="input-login" id="password" placeholder="Password" style="font-size: 0.9em; margin-top: 10px;" required>
+                </div>
+                <button type="submit" id="btn-login" class="btn btn-primary"  style="margin-top: 20px;">Login</button>
+                <p id="status-login"></p>
             </form>
         </div>
     </div>
     
-    <div class="footer">
-        <p>Kontak Admin</p>
-        <div>
-            <p>Whatsapp: +62-85263422340</p>
-            <p>Email: lyft0@protonmail.com</p>
-        </div>
-    </div>
+    <%- include('./partials/footer.ejs') %> 
 
     <script src="/scripts/user/userLogin.js"></script>
 </body>

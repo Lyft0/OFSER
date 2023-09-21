@@ -7,25 +7,14 @@
     <title>OFSER | My Request</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-1">
-            <p>OFSER</p>
-            <a href="/home-req">Home</a>
-            <a href="" id="my-request">My Request</a>
-        </div>
-        <div class="navbar-2">
-            <a href="#">Notification</a>
-            <p>Welcome, <span id="user-name"></span></p>
-            <a href="#">Profile</a>
-        </div>
-    </div>
+    <%- include('./partials/navbar_requester.ejs') %>
 
     <div class="content">
-        <p id="content-title">My Request</p>
+        <p id="content-title" style="margin-bottom: 15px;">My Request</p>
         <div class="request-tab">
             <div class="request-profile">
                 <div class="image-canvas">
-                    <img src="#" alt="profile_pic">
+                    <img id="profile-img" src="" alt="profile_pic" width="200px">
                 </div>
                 <div class="request-info">
                     <p id="request-name"></p>
@@ -34,7 +23,6 @@
                 </div>
             </div>
             <div class="request-list">
-                
                 <div class="ticket-list">
                     <% let i = 1 %> 
                     <% ticket.forEach(t => { %>
@@ -44,8 +32,8 @@
                                 <img src="/images/my-request/circle-hole.png" alt="circle" width="10px" height="10px">
                                 <div class="line"></div>
                             </div>
-                            <div class="ticket-bubble" data-ticket=<%= i %> >  
-                                <img src="#" alt="test" id="ticket-image">
+                            <div class="ticket-bubble" data-ticket=<%= i %>>  
+                                <img src="/images/service/<%= t.jenis_ticket %>.png" alt="jenis-atk" style="padding: 5px; background-color: white; border-radius: 10px;" alt="test" id="ticket-image">
                                 <div class="ticket-text">
                                     <p id="ticket-type"><%= t.jenis_ticket %></p>
                                     <span class="req-id">REQUEST ID: </span><span class="req-id req"><%= t.request_id %></span><br>
@@ -54,24 +42,20 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- The Modal -->
                         <div id="myModal" class="modal <%= 'modal-'+i %>">
-                            <!-- Modal content -->
                             <div class="modal-content">
-                                
                                 <div class="modal-header">
                                     <span class="close <%= 'close-'+i %>">&times;</span>
                                 </div>
                                 <div class="modal-body">
                                     <div class="info-1">
-                                        <img src="#" alt="jenis-atk" style="border: 1px solid black;" width="70px" height="70px">
+                                        <img src="/images/service/<%= t.jenis_ticket %>.png" alt="jenis-atk" style="padding: 10px; background-color: white; border-radius: 10px; border: 1px solid black;" width="70px" height="70px">
                                         <div class="text-info-1">
-                                            <p style="font-weight: bold; font-size: 1.1em;"><%= t.jenis_ticket %> </p>
+                                            <p id="jenis-ticket-modal" style="font-weight: bold; font-size: 1.1em;"><%= t.jenis_ticket %> </p>
                                             <p style="font-size: 0.8em;">REQUEST ID: <%= t.request_id %> </p>
                                             <p style="font-size: 0.9em;">Status: <%= t.status %> </p>
                                         </div>
-                                        
                                     </div>
                                     <div class="info-2">
                                         <div class="tab-1-info-2">
@@ -85,7 +69,7 @@
                                         </div>
                                         <div class="tab-2-info-2">
                                             <button class="req-detail-button" style="font-weight: 400;">Request Details</button>
-                                            <div class="req-detail-text">
+                                            <div class="req-detail-text" style="margin-bottom: 10px;">
                                                 <table>
                                                     <tr><td>Submitted</td><td style="padding-left: 20px;">: <%= t.createdAt.toUTCString() %></td></tr>
                                                     <tr><td>Last Updated</td><td style="padding-left: 20px;">: <%= t.updatedAt.toUTCString() %></td></tr>
@@ -98,13 +82,27 @@
                                                 </table>
                                             </div>
 
+                                            <button class="req-detail-button" style="font-weight: 400;">Activity List</button>
+                                            <div class="req-detail-text-2">
+                                                <input class="activity-notes" id="activity-note-request" data-ticket="<%= t._id %>" type="text" placeholder="Add a note" style="font-size: 0.9em;width: 380px; border-radius: 10px; height: 35px; padding: 10px;">
+                                                <div class="activity-list-request">
+                                                    <% t.activity.forEach(activity => { %>
+                                                        <div class="activity-user-request">
+                                                            <div class="msg-detail-request" style="border-bottom: 1px solid black; padding: 10px 10px;">
+                                                                <p id="act-msg-request" style="font-size: 1em;"><%= activity.msg %></p>
+                                                                <p style="font-size: 0.8em; margin-top: 8px;">By <%= activity.nama %></p>
+                                                                <p id="act-date-request" style="font-size: 0.8em;"><%= activity.tgl %></p>
+                                                            </div>
+                                                        </div>  
+                                                    <% }); %>
+                                                </div>
+                                            </div>
+
                                             <div class="btn-info-2">
                                                 <button class="btn-cancel btn-cancel-<%= i %>" data-ticket="<%= t._id %>">Cancel Request</button>
                                                 <button class="btn-print btn-print-<%= i %>" data-ticket="<%= t._id %>">Print Ticket</button>
-                                                
                                             </div>
                                         </div>
-                                            
                                     </div>
                                 </div>
                             </div>
@@ -116,20 +114,18 @@
         </div>
     </div>
 
-    <div class="footer">
-        <p>Kontak Admin</p>
-        <div>
-            <p>Whatsapp: +62-85263422340</p>
-            <p>Email: lyft0@protonmail.com</p>
-        </div>
-    </div>
+    <%- include('./partials/footer.ejs') %> 
 
     <script src="/scripts/home/getCookies.js"></script>
     <script>
         document.querySelector('#request-name').textContent = nama
         document.querySelector('#request-email').textContent = email
+        document.querySelector('#profile-img').src = "/images/profile/" + cookies.image
+        document.querySelector('#profile_img').src = '/images/profile/'+cookies.image
+        document.querySelector('#profile').href = `/profile/${id_user}`
     </script>
     <script src="/scripts/home/ticketModal.js"></script>
+    <script src="/scripts/home/activityModal.js"></script>
     <script src="/scripts/home/printTicket.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const helmet = require("helmet");
 const cookieparser = require("cookie-parser");
+const fileUpload = require('express-fileupload');
 // import controller
 const eventSuppController = require('./controllers/eventSuppController')
 const consumController = require('./controllers/consumController')
@@ -42,13 +43,16 @@ app.use(
     helmet.contentSecurityPolicy({
       directives: {
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrcElem: ["'self'", "cdn.jsdelivr.net", "'unsafe-inline'"],
+        scriptSrcAttr: ["'self'", "'unsafe-inline'"]
       },
     })
   );
 app.use(cookieparser());
+app.use(fileUpload());
 
 // routes
+app.get('/get-requester', userController.get_requester)
 // route to /request ATK
 app.use(atkRoute)
 // route to /request event support
@@ -98,8 +102,15 @@ app.get('/ticket-console', userController.all_ticket)
 // one ticket request and work order
 app.get('/ticket-request/:id', ticketController.ticket_request)
 app.get('/ticket-workorder/:id', ticketController.ticket_workorder)
+app.post('/get-ticket', ticketController.get_ticket)
 
 app.post('/assignee', ticketController.user_assignee)
 app.post('/set_status', ticketController.set_status)
+app.post('/set_priority', ticketController.set_priority)
 app.post('/new_activity', ticketController.new_activity)
 
+app.get('/profile/:id', userController.profile)
+app.post('/update-profile', userController.update)
+app.get('/logout', userController.logout)
+
+app.get('/get_data/:nama', ticketController.get_data)

@@ -4,38 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>OFSER | Home</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-1">
-            <p>OFSER</p>
-            <a href="/home-ful">Dashboard</a>
-            <a href="/ticket-console">Ticket Console</a>
-            <div class="search-group">
-                <input type="search" id="input-search" placeholder="Request ID"/>
-                <button type="button" id="btn-search">Search</button>   
-            </div>
-        </div>
-        <div class="navbar-2">
-            <a href="#">Notification</a>
-            <p>Welcome, <span id="user-name">Lucifer</span></p>
-            <a href="#">Profile</a>
-        </div>
-    </div>
+    <%- include('./partials/navbar_fulfiller.ejs') %>
 
     <div class="content">
         <p id="content-title">Dashboard</p>
-    </div>
-        
-    <div class="footer">
-        <p>Kontak Admin</p>
-        <div>
-            <p>Whatsapp: +62-85263422340</p>
-            <p>Email: lyft0@protonmail.com</p>
+
+        <div class="visual-data">
+            <div class="vis-1">
+                <div class="data-num">
+                    <div class="num-1">
+                        <p style="color: rgb(0, 137, 249);">My Ticket</p>
+                        <p id="my_ticket" class="ticket-num" style="color: rgb(0, 137, 249); font-weight: bold;">-</p>
+                    </div>
+                    <div class="num-2">
+                        <p style="color: rgb(255, 42, 42); font-weight: 500;">Critical Ticket</p>
+                        <p id="critical_ticket" class="ticket-num" style="color: rgb(255, 42, 42); font-weight: bold;">-</p>
+                    </div>
+                    <div class="num-3">
+                        <p style="color: rgb(12, 233, 0);">Open Ticket</p>
+                        <p id="open_ticket" class="ticket-num" style="color: rgb(12, 233, 0); font-weight: bold;">-</p>
+                    </div>
+                    <div class="num-4">
+                        <p>All Ticket</p>
+                        <p id="all_ticket" class="ticket-num" style="font-weight: bold;">-</p>
+                    </div> 
+                </div>
+                <p style="margin-bottom: 12px;">Tickets Backlog</p>
+                <div>
+                    <div class="loader"></div>
+                    <canvas id="chart-3" style="width: 610px; height: 280px;"></canvas>
+                </div>
+            </div>
+            <div class="vis-2">
+                <p style="margin-bottom: 12px;">Tickets Status</p>
+                <div style="width: 450px; margin-bottom: 20px;"><div class="loader"></div><canvas id="chart-2" style="width: 450px; height: 160px;"></canvas></div>
+                <p style="margin-bottom: 12px;">Tickets By Service</p>
+                <div><div class="loader"></div><canvas id="chart-1" style="width: 560px; height: 210px;"></canvas></div>
+            </div>
         </div>
     </div>
+        
+    <%- include('./partials/footer.ejs') %> 
 
     <script src="/scripts/home/getCookies.js"></script>
+    <script>
+        document.querySelector('#profile').href = `/profile/${id_user}`
+        document.querySelector('#profile_img').src = '/images/profile/'+cookies.image
+    </script>
+    <script src="/scripts/home/searchTicket.js"></script>
+    <script src="/scripts/home/getData.js"></script>
+    <script src="/scripts/home/visualize.js"></script>
+    
 </body>
 </html>

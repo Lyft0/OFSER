@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>OFSER | Profile</title>
+</head>
+<body>
+    <%- include('./partials/navbar_requester.ejs') %> 
+
+    <div class="content">
+        <p id="content-title">Profile</p>
+        <div class="request-tab">
+            <div class="request-profile">
+                <div class="image-canvas">
+                    <img id="profile-img" src="/images/profile/<%= user.image %>" alt="profile_pic" width="200px">
+                </div>
+                <div class="request-info">
+                    <p id="request-name"></p>
+                    <p id="info_">Info</p>
+                    <p id="request-email"></p>
+                </div>
+            </div>
+            <div class="input-profile">
+                <form id="form-profile" action="/update-profile" method="post" enctype="multipart/form-data">
+                    <div class="tab-profiles">
+                        <div class="tab-profile-1">
+                            <input type="hidden" name="id_user" value="<%= user._id %>">
+                            <p>Nama Akun:</p>
+                            <input type="text" name="nama" id="nama" value="<%= user.nama %>" style="margin-bottom: 10px;">
+                            <p>Nomor Pekerja:</p>
+                            <input type="text" name="no_pekerja" id="no_pekerja" value="<%= user.no_pekerja %>" style="margin-bottom: 10px;">
+                            <p>Fungsi:</p>
+                            <input type="text" name="fungsi" id="fungsi" value="<%= user.fungsi %>" style="margin-bottom: 10px;">
+                            <p>Perusahaan:</p>
+                            <input type="text" name="perusahaan" id="perusahaan" value="<%= user.perusahaan %>" style="margin-bottom: 10px;">
+                            <p>Nomor Kontak:</p>
+                            <input type="text" name="no_kontak" id="no_kontak" value="<%= user.no_kontak %>" style="margin-bottom: 10px;">
+                            <p>Gedung:</p>
+                            <input type="text" name="gedung" id="gedung" value="<%= user.gedung %>">
+                        </div>
+                        <div class="tab-profile-2">
+                            <p>Change Profile Picture:</p>
+                            <input type="file" name="img" id="img" style="margin-bottom: 10px;">
+                            <p>Change Email:</p>
+                            <input type="email" name="email" id="email" value="<%= user.email %>" style="margin-bottom: 10px;">
+                            <p>Change Password:</p>
+                            <input type="password" name="password" id="password" value="<%= user.password %>" style="margin-bottom: 10px;">
+                            <button type="submit" id="btn-update" style="margin-top: 20px;">Update Profile</button>
+                            <button type="button" id="btn-logout">Log Out</button>
+                        </div>
+                    </div>
+                    <div class="btn-profile">
+                        
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %> 
+
+    <script src="/scripts/home/getCookies.js"></script>
+    <script>
+        document.querySelector('#request-name').textContent = nama
+        document.querySelector('#request-email').textContent = email
+        document.querySelector('#btn-show').addEventListener('click', () => {
+            if (document.querySelector('#password').type === "password") {
+                document.querySelector('#password').type = "text";
+            } else {
+                document.querySelector('#password').type = "password";
+            }
+        })
+    </script>
+    <script>
+        document.querySelector('#profile').href = `/profile/${id_user}`
+
+        if(role == "fulfiller"){
+            document.querySelector('.navbar').innerHTML = '<div class="navbar-1"><p id="logo" style="font-size: 1.3em; padding-top: 3px;">OFSER</p><a href="/home-ful" style="text-decoration: none; color: white;">Dashboard</a><a href="/ticket-console" id="ticket-request" style="text-decoration: none; color: white;">Ticket Console</a><div class="search-group"><input type="search" id="input-search" placeholder="REQ:ID or WO:ID"/><button type="button" id="btn-search"><img src="/images/icon/search.png" alt="search" width="12px"></button></div></div><div class="navbar-2"><p>Welcome, <span id="user-name" style="font-weight: 400;"></span></p><a href="#" id="profile" style="padding-top: 1px;"><img id="profile_img" src="" alt="profile" width="32px" style="border-radius: 50px; border: 1px solid black;"></a></div>'
+            document.querySelector('#user-name').textContent = cookies.nama
+            document.querySelector('#logo').style.fontFamily = 'League Spartan, sans-serif'
+        }
+
+        document.querySelector('#profile_img').src = '/images/profile/'+cookies.image
+    </script>
+    <script src="/scripts/home/ticketModal.js"></script>
+    <script src="/scripts/home/printTicket.js"></script>
+    <script src="/scripts/home/logout.js"></script>
+</body>
+</html>

@@ -160,6 +160,16 @@ const ticket_workorder = async (req, res) => {
 }
 
 const user_assignee = async (req, res) => {
+    let activity = {
+        'nama':req.body.nama,
+        'tgl':req.body.tgl,
+        'msg':`${req.body.nama} assign ticket to ${req.body.assignee}`,
+    }
+    let activity_old = await Ticket.findById(req.body.id_ticket,{ activity:1, _id:0 })
+    activity_old = activity_old.activity
+    activity_old.unshift(activity)    
+    let activity_update = await Ticket.findByIdAndUpdate(req.body.id_ticket, { activity: activity_old })
+
     Ticket.findByIdAndUpdate(req.body.id_ticket, { assignee: req.body.assignee })
     .then((result) => {
         res.json({ redirect: `/ticket-workorder/${req.body.id_ticket}` })
@@ -170,7 +180,37 @@ const user_assignee = async (req, res) => {
 }
 
 const set_status = async (req, res) => {
+    let activity = {
+        'nama':req.body.nama,
+        'tgl':req.body.tgl,
+        'msg':`Status change to ${req.body.status}`,
+    }
+    let activity_old = await Ticket.findById(req.body.id_ticket,{ activity:1, _id:0 })
+    activity_old = activity_old.activity
+    activity_old.unshift(activity)    
+    let activity_update = await Ticket.findByIdAndUpdate(req.body.id_ticket, { activity: activity_old })
+
     Ticket.findByIdAndUpdate(req.body.id_ticket, { status: req.body.status })
+    .then((result) => {
+        res.json({ redirect: `/ticket-workorder/${req.body.id_ticket}`})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+const set_priority = async (req, res) => {
+    let activity = {
+        'nama':req.body.nama,
+        'tgl':req.body.tgl,
+        'msg':`Priority change to ${req.body.priority}`,
+    }
+    let activity_old = await Ticket.findById(req.body.id_ticket,{ activity:1, _id:0 })
+    activity_old = activity_old.activity
+    activity_old.unshift(activity)    
+    let activity_update = await Ticket.findByIdAndUpdate(req.body.id_ticket, { activity: activity_old })
+    
+    Ticket.findByIdAndUpdate(req.body.id_ticket, { priority: req.body.priority })
     .then((result) => {
         res.json({ redirect: `/ticket-workorder/${req.body.id_ticket}`})
     })
@@ -191,13 +231,94 @@ const new_activity = async (req, res) => {
     
     Ticket.findByIdAndUpdate(req.body.id_ticket, { activity: activity_old })
     .then((result) => {
-        res.json({ redirect: `/${req.body.endpoint}/${req.body.id_ticket}`})
+        if((req.body.endpoint).includes('/my-request')){
+            res.json({ redirect: `${req.body.endpoint}`})
+        }else{
+            res.json({ redirect: `/${req.body.endpoint}/${req.body.id_ticket}`})
+        }
     })
     .catch((err) => {
         console.log(err)
     })
-    
 }
+
+const get_ticket = async (req, res) => {
+    const ticket = await Ticket.findOne({$or: [{request_id: req.body.request_id}, {workorder_id: req.body.request_id}]})
+
+    let id_ticket = (ticket._id).toString()
+
+    if((req.body.request_id).includes('WO')){
+        res.json({ redirect: `/ticket-workorder/${id_ticket}`})    
+    }else{
+        res.json({ redirect: `/ticket-request/${id_ticket}`})
+    }
+}
+
+const get_data = async (req, res) => {
+    const nama = req.params.nama
+    
+    const my_ticket = await Ticket.find({assignee: nama}).count()
+    const critical_ticket = await Ticket.find({priority: "Critical"}).count()
+    const open_ticket = await Ticket.find({assignee: ""}).count()
+    const all_ticket = await Ticket.find().count()
+    const num_data = [my_ticket, critical_ticket, open_ticket, all_ticket]
+
+    const atk_ticket = await atkTicketModel.find().count()
+    const consum_ticket = await consumTicketModel.find().count()
+    const eventsupp_ticket = await eventSuppTicketModel.find().count()
+    const expecourmail_ticket = await expecourmailTicketModel.find().count()
+    const kartunama_ticket = await kartunamaTicketModel.find().count()
+    const konsumsi_ticket = await konsumsiTicketModel.find().count()
+    const rtk_ticket = await rtkTicketModel.find().count()
+    const workfurn_ticket = await workfurnTicketModel.find().count()
+    const type_data = [atk_ticket, consum_ticket, eventsupp_ticket, expecourmail_ticket, kartunama_ticket, konsumsi_ticket, rtk_ticket, workfurn_ticket]
+
+    const low_data = [
+        await Ticket.find({priority: "Low", status: "Assigned"}).count(),
+        await Ticket.find({priority: "Low", status: "In Progress"}).count(),
+        await Ticket.find({priority: "Low", status: "Pending"}).count(),
+    ]
+    const medium_data = [
+        await Ticket.find({priority: "Medium", status: "Assigned"}).count(),
+        await Ticket.find({priority: "Medium", status: "In Progress"}).count(),
+        await Ticket.find({priority: "Medium", status: "Pending"}).count(),
+    ]
+    const high_data = [
+        await Ticket.find({priority: "High", status: "Assigned"}).count(),
+        await Ticket.find({priority: "High", status: "In Progress"}).count(),
+        await Ticket.find({priority: "High", status: "Pending"}).count(),
+    ]
+    const critical_data = [
+        await Ticket.find({priority: "Critical", status: "Assigned"}).count(),
+        await Ticket.find({priority: "Critical", status: "In Progress"}).count(),
+        await Ticket.find({priority: "Critical", status: "Pending"}).count(),
+    ]
+    const status_data = [low_data, medium_data, high_data, critical_data]
+
+
+    const date_data = await Ticket.aggregate([
+        {
+            $group: {
+                _id: {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" },
+                    day: { $dayOfMonth: "$createdAt" }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: {
+                "_id.year": 1,   // Sort by year in ascending order
+                "_id.month": 1,  // Then by month in ascending order
+                "_id.day": 1     // Finally by day in ascending order
+            }
+        }
+    ]);
+
+    res.json({ num_data: num_data, type_data: type_data, status_data: status_data, date_data: date_data })
+}
+
 
 module.exports = {
     delete_ticket,
@@ -206,6 +327,9 @@ module.exports = {
     ticket_workorder,
     user_assignee,
     set_status,
+    set_priority,
     new_activity,
+    get_ticket,
+    get_data,
 }
 

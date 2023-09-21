@@ -12,6 +12,7 @@ const userSchema = new Schema({ // instance dari Schema
     no_kontak: {type: String, required: true},
     gedung: {type: String, required: true},
     role: {type: String, required: true},
+    image: {type: String, required: true},
 }) // constructor untuk generate timestamp update
 
 // model user untuk digunakan save, get, delete data

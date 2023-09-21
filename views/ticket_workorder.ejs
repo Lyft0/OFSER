@@ -35,6 +35,16 @@
                     <div>
                         <table style="font-size: 0.93em;">
                             <tr><td>Work Order</td><td style="padding-left: 20px;">: <%= ticket.workorder_id %></td></tr>
+                            <tr><td>Priority</td>
+                                <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: 
+                                    <select name="priority" id="priority">
+                                        <% const priorityOptions = ["Not Set","Low", "Medium", "High", "Critical"]; %>
+                                        <% for (const option of priorityOptions) { %>
+                                            <option value="<%= option %>" <%= ticket.priority === option ? 'selected' : '' %>><%= option %></option>
+                                        <% } %>
+                                    </select>
+                                </td>
+                            </tr>
                             <tr><td>Assignee</td>
                                 <td style="padding-left: 20px;">: 
                                     <select name="assignee" id="assignee" data-ticket="<%= ticket._id %>" value="<%= ticket.assignee %>">
@@ -52,7 +62,7 @@
                             <tr><td>Status</td>
                                 <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: 
                                     <select name="status" id="status">
-                                        <% const statusOptions = ["Waiting Approval", "Pending", "In Progress", "Rejected"]; %>
+                                        <% const statusOptions = ["Waiting Approval", "Assigned", "Pending", "In Progress", "Rejected"]; %>
                                         <% for (const option of statusOptions) { %>
                                             <option value="<%= option %>" <%= ticket.status === option ? 'selected' : '' %>><%= option %></option>
                                         <% } %>
@@ -90,7 +100,7 @@
                 <div class="activity-list">
                     <% ticket.activity.forEach(activity => { %>
                         <div class="activity-user">
-                            <img src="#" alt="profile" style="border: 1px solid black; width: 40px; height: 40px;">
+                            <img src="/images/profile/<%= activity.nama %>.png" onerror="this.src='/images/profile/default.png'" alt="profile" style="border-radius: 50px; height: 50px;">
                             <div class="msg-detail">
                                 <p id="act-msg" style="font-size: 0.85em;"><%= activity.msg %></p>
                                 <p style="font-size: 0.7em; margin-top: 8px;">By <%= activity.nama %></p>
@@ -103,7 +113,6 @@
         </div>
     </div>
 
-
     <div class="footer">
         <p>Kontak Admin</p>
         <div>
@@ -114,73 +123,7 @@
 
     <script src="/scripts/home/getCookies.js"></script>
     <script src="/scripts/home/printTicket.js"></script>
-    <script>
-        document.querySelector('#progress_sla').disabled = true
-
-        document.querySelector('#status').addEventListener('change', () => {
-            let status = document.querySelector('#status').value
-            if(status == 'In Progress'){
-                document.querySelector('#progress_sla').style.display = "inline"
-                document.querySelector('#date_sla').style.display = "inline"
-            }else{
-                document.querySelector('#progress_sla').style.display = "none"
-                document.querySelector('#date_sla').style.display = "none"
-            }
-
-            let id_ticket = document.querySelector('#assignee').dataset.ticket 
-            fetch('/set_status', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'id_ticket': id_ticket,
-                    'status': status
-                })
-            })
-            .then((response) => response.json())
-            .then((data) => window.location.href = data.redirect)
-            .catch((err) => {
-                console.log(err)
-            })
-        })
-
-        if(document.querySelector('#status').value == 'In Progress'){
-            document.querySelector('#progress_sla').style.display = "inline"
-            document.querySelector('#date_sla').style.display = "inline"
-
-            let date_now = new Date()
-            let date_created = new Date(document.querySelector('#date_sla').dataset.created)
-            let diff = (date_now - date_created) / (1000 * 60 * 60 * 24)
-            diff = Math.round(diff)
-            document.querySelector('#progress_sla').value = diff
-        }else{
-            document.querySelector('#progress_sla').style.display = "none"
-            document.querySelector('#date_sla').style.display = "none"
-        }
-
-        document.querySelector('#assignee').addEventListener('change', () => {
-            let assignee = document.querySelector('#assignee').value
-            let id_ticket = document.querySelector('#assignee').dataset.ticket 
-            fetch('/assignee', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'id_ticket': id_ticket,
-                    'assignee': assignee
-                })
-            })
-            .then((response) => response.json())
-            .then((data) => window.location.href = data.redirect)
-            .catch((err) => {
-                console.log(err)
-            })
-        })
-
-        var endpoint = 'ticket-workorder'
-    </script>
+    <script src="/scripts/home/updateWorkorder.js"></script>
     <script src="/scripts/home/activity.js"></script>
 </body>
 </html>

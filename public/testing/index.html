@@ -1,32 +1,102 @@
-<!-- index.html (Main Page) -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Invoice Generator</title>
-</head>
-<body>
-    <h1>Invoice Generator</h1>
+<div>
+    <div style="width: 600px;"><canvas id="chart-1"></canvas></div>
+    <div style="width: 600px;"><canvas id="chart-2"></canvas></div>
+    <div style="width: 600px;"><canvas id="chart-3"></canvas></div>
 
-    <!-- Input fields for custom data -->
-    <label for="customerName">Customer Name:</label>
-    <input type="text" id="customerName" placeholder="Enter customer's name"><br>
+</div>
 
-    <label for="invoiceNumber">Invoice Number:</label>
-    <input type="text" id="invoiceNumber" placeholder="Enter invoice number"><br>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" placeholder="Enter invoice amount"><br>
+<script>
+    const ctx = document.getElementById('chart-1');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['ATK', 'Consumables', 'Event Support', 'Expedition, Courier, & Mailing', 'Kartu Nama', 'Konsumsi', 'Rumah Tangga Kantor', 'Workstation & Furniture'],
+            datasets: [{
+                label: 'Easy as',
+                data: [19, 22, 21, 3, 1, 23, 5, 12],
+            }],
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Number of Tickets'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
 
-    <!-- Button to generate PDF -->
-    <button id="generatePDF"">Generate Invoice PDF</button>
+<script>
+    var ctx2 = document.getElementById("chart-2").getContext("2d");
 
-    <!-- PDF container -->
-    <div id="pdfContainer"></div>
+    var data2 = {
+        labels: ["Assigned", "In Progress", "Pending"],
+        datasets: [
+            {
+                label: "Low",
+                backgroundColor: "green",
+                data: [3, 7, 4]
+            },
+            {
+                label: "Medium",
+                backgroundColor: "yellow",
+                data: [4, 3, 5]
+            },
+            {
+                label: "High",
+                backgroundColor: "orange",
+                data: [7, 2, 6]
+            },
+            {
+                label: "Critical",
+                backgroundColor: "red",
+                data: [7, 3, 1]
+            }
+        ]
+    };
+    var myBarChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: data2,
+        options: {
+            barValueSpacing: 20,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                    }
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    let charts = document.getElementById("chart-3");//html canvas
 
-    <!-- JavaScript for generating PDF -->
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://unpkg.com/jspdf-autotable@3.6.0/dist/jspdf.plugin.autotable.js"></script>
-    <script src="index.js"></script>
-</body>
-</html>
+    var days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];//x axes
+    var litres = [150, 90, 95, 130, 85, 180, 85];//y axes
+    //create a line chart
+    new Chart(charts, {
+        type: 'line', //This is a line chart
+        data: {
+            labels: days, //x-axes data 
+            datasets: [{
+                label: "Line Chart",
+                data: litres, //y-axes data 
+                borderColor: 'blue',
+                fill: false,
+            }]
+        },
+    });
+</script>

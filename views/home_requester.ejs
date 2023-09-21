@@ -7,81 +7,68 @@
     <title>OFSER | Home</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-1">
-            <p>OFSER</p>
-            <a href="/home-req">Home</a>
-            <a href="" id="my-request">My Request</a>
-        </div>
-        <div class="navbar-2">
-            <a href="#">Notification</a>
-            <p>Welcome, <span id="user-name"></span></p>
-            <a href="#">Profile</a>
-        </div>
-    </div>
+    <%- include('./partials/navbar_requester.ejs') %> 
 
     <div class="content">
         <p id="content-title">Office Facility Services</p>
         <div class="services">
-            <a href="/request/atk">
+            <a class="service" href="/request/atk" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="atk">
+                    <img src="/images/service/ATK.png" width="80px" style="padding: 10px; background-color: white; border-radius: 10px;" alt="atk">
                     <p>ATK/Barang Cetakan</p>
                 </div>
             </a>
-            <a href="/request/consum">
+            <a class="service" href="/request/consum" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="consum">
+                    <img src="/images/service/Consumables.png" width="80px" style="padding: 10px; background-color: white; border-radius: 10px;" alt="consum">
                     <p>Consumables</p>
                 </div>
             </a>
-            <a href="/request/eventsupp">
+            <a class="service" href="/request/eventsupp" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="eventsupp">
+                    <img src="/images/service/Event Support.png" width="80px" style="padding: 12px; background-color: white; border-radius: 10px;" alt="eventsupp">
                     <p>Event Support</p>
                 </div>
             </a>
-            <a href="/request/expecourmail">
+            <a class="service" href="/request/expecourmail" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="expecourmail">
+                    <img src="/images/service/Expedition, Courier, & Mailing.png" width="80px" style="padding: 12px; background-color: white; border-radius: 10px;" alt="expecourmail">
                     <p>Expedition, Courier & Mailing (Pengiriman)</p>
                 </div>
             </a>
-            <a href="/request/kartunama">
+            <a class="service" href="/request/kartunama" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="kartunama">
+                    <img src="/images/service/Kartu Nama.png" width="80px" style="padding: 12px; background-color: white; border-radius: 10px;" alt="kartunama">
                     <p>Kartu Nama</p>
                 </div>
             </a>
-            <a href="/request/konsumsi">
+            <a class="service" href="/request/konsumsi" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="konsumsi">
+                    <img src="/images/service/Konsumsi.png" width="80px" style="padding: 10px; background-color: white; border-radius: 10px;" alt="konsumsi">
                     <p>Konsumsi</p>
                 </div>
             </a>
-            <a href="/request/rtk">
+            <a class="service" href="/request/rtk" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="rtk">
+                    <img src="/images/service/RTK.png" width="80px" style="padding: 10px; background-color: white; border-radius: 10px;" alt="rtk">
                     <p>Rumah Tangga Kantor</p>
                 </div>
             </a>
-            <a href="/request/workfurn">
+            <a class="service" href="/request/workfurn" target="_blank">
                 <div class="serv">
-                    <img src="#" alt="workfurn">
+                    <img src="/images/service/Workstation & Furniture.png" width="80px" style="padding: 10px; background-color: white; border-radius: 10px;" alt="workfurn">
                     <p>Workstation & Furniture</p>
                 </div>
             </a>
         </div>
     </div>
         
-    <div class="footer">
-        <p>Kontak Admin</p>
-        <div>
-            <p>Whatsapp: +62-85263422340</p>
-            <p>Email: lyft0@protonmail.com</p>
-        </div>
-    </div>
+    <%- include('./partials/footer.ejs') %> 
 
     <script src="/scripts/home/getCookies.js"></script>
+    <script>
+        document.querySelector('#profile').href = `/profile/${id_user}`
+        document.querySelector('#profile_img').src = '/images/profile/'+cookies.image
+    </script>
 </body>
 </html>

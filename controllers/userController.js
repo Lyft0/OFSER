@@ -27,6 +27,13 @@ const my_request = (req, res) => {
         })
 }
 
+const get_requester = (req, res) => {
+    User.find({},{ nama:1, _id:0})
+        .then((result) => {
+            res.json({ requester: result })
+        })
+}
+
 const all_ticket = (req, res) => {
     Ticket.find()
         .then((result) => {
@@ -34,8 +41,41 @@ const all_ticket = (req, res) => {
         })
 }
 
+const profile = async (req, res) => {
+    const id_user = req.params.id
+
+    const user = await User.findById(id_user)
+    res.render('profile', { user: user })
+}
+
+const update = async (req, res) => {
+    const user_update = await User.findByIdAndUpdate({_id: req.body.id_user}, {
+        ...req.body
+    })
+    if(req.files){
+        const { img } = req.files;
+        let img_name = req.body.nama + ".png"
+        img.mv(__dirname + '/../public/images/profile/' + img_name);
+        const user_img = await User.findByIdAndUpdate({_id: req.body.id_user}, { image: img_name })
+    }
+    const user = await User.findByIdAndUpdate({_id: req.body.id_user})
+
+    res.clearCookie('user');
+    res.cookie('user', await User.findById(req.body.id_user))
+    res.render('profile', { user: user })
+}
+
+const logout = (req, res) => {
+    res.clearCookie('user');
+    res.json({ redirect: '/login' })
+}
+
 module.exports = {
     user_login,
     my_request,
+    get_requester,
     all_ticket,
+    profile,
+    update,
+    logout,
 }

@@ -45,7 +45,7 @@
                 </div>
                 <div class="req-info">
                     <div class="user-info">
-                        <img src="#" alt="profile" style="width: 80px; height: 80px; border: 1px solid black;">
+                        <img src="/images/profile/<%= ticket.req_by %>.png" alt="profile" style="width: 80px; height: 80px; border-radius: 10px;">
                         <div class="user-infos">
                             <p style="font-size: 0.9em; margin-bottom: 4px;">Customer</p>
                             <p style="font-size: 1.2em; font-weight: bold;"><%= ticket.nama_req %></p>
@@ -75,7 +75,7 @@
                 <div class="activity-list">
                     <% ticket.activity.forEach(activity => { %>
                         <div class="activity-user">
-                            <img src="#" alt="profile" style="border: 1px solid black; width: 40px; height: 40px;">
+                            <img src="/images/profile/<%= activity.nama %>.png" onerror="this.src='/images/profile/default.png'" style="border-radius: 50px; height: 50px;">
                             <div class="msg-detail">
                                 <p id="act-msg" style="font-size: 0.85em;"><%= activity.msg %></p>
                                 <p style="font-size: 0.7em; margin-top: 8px;">By <%= activity.nama %></p>

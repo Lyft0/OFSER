@@ -26,7 +26,7 @@ body {
     background-color: #EB455F;
     box-shadow: -1px 8px 18px -4px rgba(0,0,0,1);
     -webkit-box-shadow: 1px 1px 12px -4px  rgba(0,0,0,1);
-
+    position: sticky;
 }
 .navbar-1 {
     display: flex;
@@ -531,14 +531,14 @@ body {
     border-radius: 10px;
     margin-left: 10px;
     color: white;
-    background-color: #64CCC5;
+    background-color: #25bbb1;
     font-weight: bold;
     border: none;
     cursor: pointer;
 }
 .btn-print:hover,
 .btn-workorder:hover{
-    background-color: #6b9e9b;
+    background-color: #3b7d79;
 }
 .btn-cancel {
     padding: 10px;
@@ -555,9 +555,10 @@ body {
     background-color: #9a2d2d;
 }
 
-/* Ticket request page */
-#table-ticket>#tbody>tr:hover {
+/* //---> Ticket request page */
+#table-ticket > #tbody> tr:hover {
     background-color: #757575;
+    color: white;
     cursor: pointer;
 }
 .tab-group-req {
@@ -589,7 +590,7 @@ body {
     gap: 20px;
 }
 .activity-tab {
-    background-color: #757575;
+    background-color: #c8c8c8;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -619,12 +620,19 @@ body {
     height: 325px;
     overflow-x: none;
     overflow-y: auto;
-    background-color: #818181;
+    background-color: #8a8a8a;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    border-radius: 10px;
 }
+#priority, #assignee, #status {
+    height: 23px;
+    width: 120px;
+}
+
+
 /* Sliding SLA */
 input[type="range"] {
     -webkit-appearance: none;
@@ -809,3 +817,21 @@ input[type="range"]::-webkit-slider-thumb {
     align-items: center;
     justify-content: center;
 }
+.content-table {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex: 1;
+}
+.active::after {
+    content: none
+}
+#table-ticket > thead {
+    background-color: #333;
+    color: white;
+}
+#table-ticket > th, td {
+    border-color: #5dcece;
+}
+
+

@@ -43,7 +43,7 @@ app.use(
     helmet.contentSecurityPolicy({
       directives: {
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrcElem: ["'self'", "cdn.jsdelivr.net", "'unsafe-inline'"],
+        scriptSrcElem: ["'self'", "cdn.jsdelivr.net", "unpkg.com", "cdnjs.cloudflare.com", "s3.amazonaws.com", "'unsafe-inline'"],
         scriptSrcAttr: ["'self'", "'unsafe-inline'"]
       },
     })
@@ -52,7 +52,6 @@ app.use(cookieparser());
 app.use(fileUpload());
 
 // routes
-app.get('/get-requester', userController.get_requester)
 // route to /request ATK
 app.use(atkRoute)
 // route to /request event support
@@ -84,6 +83,7 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 app.post('/login-user', userController.user_login)
+// home page requester & fulfiller
 app.get('/home-req', (req, res) => {
     res.render('home_requester')
 })
@@ -92,6 +92,7 @@ app.get('/home-ful', (req, res) => {
 })
 // requester page
 app.get('/my-request/:id', userController.my_request)
+app.get('/get-requester', userController.get_requester)
 // delete ticket
 app.delete('/delete-ticket/:user/:id', ticketController.delete_ticket)
 // get ticket detail
@@ -104,13 +105,16 @@ app.get('/ticket-request/:id', ticketController.ticket_request)
 app.get('/ticket-workorder/:id', ticketController.ticket_workorder)
 app.post('/get-ticket', ticketController.get_ticket)
 
+// activity, status, priority
 app.post('/assignee', ticketController.user_assignee)
 app.post('/set_status', ticketController.set_status)
 app.post('/set_priority', ticketController.set_priority)
 app.post('/new_activity', ticketController.new_activity)
 
+// my profile
 app.get('/profile/:id', userController.profile)
 app.post('/update-profile', userController.update)
 app.get('/logout', userController.logout)
 
+// dashboard data
 app.get('/get_data/:nama', ticketController.get_data)

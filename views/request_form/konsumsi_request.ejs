@@ -2,54 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Request Konsumsi</title>
 </head>
 
-<body>
-    <h1>Request Konsumsi</h1>
-    <form id="form-request">
+<body class="p-3">
+    <img src="/images/service/Konsumsi.png" width="40px" alt="atk"
+        style="border: 1px solid black; padding: 5px; border-radius: 10px;">
+    <span class="m-lg-2 fs-4 fw-bold" style="vertical-align: middle;">Request Konsumsi</span><br>
+    <label for="req_by" class="mt-3">Requested By :</label>
+    <input type="text" name="req_by" id="req_by" style="width: 220px; margin-bottom: 5px;" disabled><br>
+    <label for="req_for">Requested For :</label>
+    <select name="req_for" id="req_for" style="width: 215px;">
+        <option selected disabled hidden>Pilih Requestee</option>
+    </select>
+    <form id="form-request" class="mt-3 d-flex flex-row gap-5 pt-3" style="border-top: 1px solid black;">
         <%- include('../partials/form_general_info.ejs') %>
-
-        <p>Request Details</p>
-        <label for="kegiatan">Jenis Kegiatan</label><br>
-        <select name="kegiatan" id="kegiatan">
-            <option value='' selected disabled hidden>Pilih Jenis Kegiatan</option>
-            <option value="Event">Event</option>
-            <option value="Rapat">Rapat</option>
-            <option value="Workshop">Workshop</option>
-            <option value="Training">Training</option>
-        </select><br>
-        <label for="desc_kegiatan">Deskripsi Kegiatan</label><input type="text" name="desc_kegiatan" id="desc_kegiatan"><br>
-        <label for="tgl_mulai">Tanggal Mulai</label><input type="date" name="tgl_mulai" id="tgl_mulai"><br>
-        <label for="tgl_selesai">Tanggal Selesai</label><input type="date" name="tgl_selesai" id="tgl_selesai"><br>
-        <label for="jam_mulai">Jam Mulai</label><input type="time" name="jam_mulai" id="jam_mulai"><br>
-        <label for="jam_selesai">Jam Selesai</label><input type="time" name="jam_selesai" id="jam_selesai"><br>
-        <label for="lokasi_kegiatan">Lokasi Kegiatan</label><input type="text" name="lokasi_kegiatan"id="lokasi_kegiatan"><br>
-
-        <label for="jumlah_hari">Permintaan Konsumsi untuk berapa hari?</label><br>
-        <select name="jumlah_hari" id="jumlah_hari">
-            <option value='' selected disabled hidden>Pilih Jumlah Hari</option>
-            <option value=1>1 Hari</option>
-            <option value=2>2 Hari</option>
-            <option value=3>3 Hari</option>
-        </select><br>
-        <table border="1" id="item">
-            <tr>
-                <th>Hari</th>
-                <th>Jenis Konsumsi</th>
-                <th>Paket Konsumsi</th>
-                <th>Jumlah Paket</th>
-                <th id="del_td"></th>
-            </tr>
-            <tbody id="item-list">
-            </tbody>
-        </table>
-        <button type="submit" id="submit">Submit</button>
+            <div class="req-detail">
+                <p class="mb-2" style="font-weight: bold;">Request Details</p>
+                <div class="req-detail">
+                    <label for="kegiatan">Jenis Kegiatan</label><br>
+                    <select name="kegiatan" id="kegiatan">
+                        <option value='' selected disabled hidden>Pilih Jenis Kegiatan</option>
+                        <option value="Event">Event</option>
+                        <option value="Rapat">Rapat</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Training">Training</option>
+                    </select><br>
+                    <label for="desc_kegiatan">Deskripsi Kegiatan</label><br><textarea name="desc_kegiatan" id="desc_kegiatan" cols="35" rows="2"></textarea><br>
+                    <label for="tgl_mulai">Tanggal Mulai</label><br><input type="date" name="tgl_mulai" id="tgl_mulai"><br>
+                    <label for="tgl_selesai">Tanggal Selesai</label><br><input type="date" name="tgl_selesai" id="tgl_selesai"><br>
+                    <label for="jam_mulai">Jam Mulai</label><br><input type="time" name="jam_mulai" id="jam_mulai"><br>
+                    <label for="jam_selesai">Jam Selesai</label><br><input type="time" name="jam_selesai" id="jam_selesai"><br>
+                    <label for="lokasi_kegiatan">Lokasi Kegiatan</label><br><input type="text" name="lokasi_kegiatan"id="lokasi_kegiatan" style="width: 270px;"><br>
+                    <label for="jumlah_hari">Permintaan Konsumsi untuk berapa hari?</label><br>
+                    <select name="jumlah_hari" id="jumlah_hari">
+                        <option value='' selected disabled hidden>Pilih Jumlah Hari</option>
+                        <option value=1>1 Hari</option>
+                        <option value=2>2 Hari</option>
+                        <option value=3>3 Hari</option>
+                    </select><br>
+                </div>
+            </div>
+            <div class="table-item">
+                <p class="mb-2" style="font-weight: bold;">Item List</p>
+                
+                <table border="1" id="item" class="table table-striped table-bordered">
+                    <tr>
+                        <th>Hari</th>
+                        <th>Jenis Konsumsi</th>
+                        <th>Paket Konsumsi</th>
+                        <th>Jumlah Paket</th>
+                        <th id="del_td"></th>
+                    </tr>
+                    <tbody id="item-list">
+                    </tbody>
+                </table>
+                <button type="submit" id="submit" class="btn btn-success">Submit Request</button>
+            </div>
     </form>
-    
+
     <script>
     let hari = 0
     let itemList = []
@@ -78,7 +92,7 @@
                 `<select name="paket_konsum" id="paket_konsum_${i}">
                     <option value='' selected disabled hidden>Pilih Paket</option>
                 </select>`
-            jumlah_kom_td.innerHTML = `<input type="number" name="jumlah" id="jumlah_${i}" min="1" value="1">`
+            jumlah_kom_td.innerHTML = `<input type="number" name="jumlah" id="jumlah_${i}" min="1" value="1" style="width: 60px">`
             delete_td.innerHTML = `<button type="button" class="delete_td">Delete</button>`
         
             const jenisKonsum = document.getElementById(`jenis_konsum_${i}`);

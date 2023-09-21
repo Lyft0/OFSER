@@ -35,7 +35,7 @@ const get_requester = (req, res) => {
 }
 
 const all_ticket = (req, res) => {
-    Ticket.find()
+    Ticket.find().sort({ createdAt: -1 })
         .then((result) => {
             res.render('ticket_console', { ticket: result })
         })

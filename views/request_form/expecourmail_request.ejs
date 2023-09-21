@@ -1,41 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expedition, Courier, and Mail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Request Expedition, Courier, & Mailing</title>
 </head>
-<body>
-    <h1>Request Expedition, Courier, and Mail</h1>
-    <form id="form-request">
-        <%- include('../partials/form_general_info.ejs') %> 
 
-        <p>Request Details</p>
-        <label for="jenis_kirim">Jenis Pengiriman</label><br>
-        <input type="radio" name="jenis_kirim" id="internal" value="Internal"><label for="internal">Internal</label><br>
-        <input type="radio" name="jenis_kirim" id="eksternal" value="Eksternal"><label for="eksternal">Eksternal</label><br>
-
-        <label for="tgl_kirim">Tanggal Pengiriman</label><input type="date" name="tgl_kirim" id="tgl_kirim"><br>
-        <label for="jam_kirim">Jam Pengiriman</label><input type="time" name="jam_kirim" id="jam_kirim"><br>
-        <label for="nama_kirim">Nama Pengirim</label><input type="text" name="nama_kirim" id="nama_kirim"><br>
-        <label for="lokasi_kirim">Lokasi Pengirim</label><input type="text" name="lokasi_kirim" id="lokasi_kirim"><br>
-        <label for="nama_terima">Nama Penerima</label><input type="text" name="nama_terima" id="nama_terima"><br>
-        <label for="lokasi_terima">Lokasi Penerima</label><input type="text" name="lokasi_terima" id="lokasi_terima"><br>
-        <label for="kontak_terima">Kontak Penerima</label><input type="tel" name="kontak_terima" id="kontak_terima"><br>
+<body class="p-3">
+    <img src="/images/service/Expedition, Courier, & Mailing.png" width="40px" alt="atk"
+        style="border: 1px solid black; padding: 5px; border-radius: 10px;">
+    <span class="m-lg-2 fs-4 fw-bold" style="vertical-align: middle;">Request Expedition, Courier, & Mailing</span><br>
+    <label for="req_by" class="mt-3">Requested By :</label>
+    <input type="text" name="req_by" id="req_by" style="width: 220px; margin-bottom: 5px;" disabled><br>
+    <label for="req_for">Requested For :</label>
+    <select name="req_for" id="req_for" style="width: 215px;">
+        <option selected disabled hidden>Pilih Requestee</option>
+    </select>
+    <form id="form-request" class="mt-3 d-flex flex-row gap-5 pt-3" style="border-top: 1px solid black;">
+        <%- include('../partials/form_general_info.ejs') %>
+            <div class="req-detail">
+                <p class="mb-2" style="font-weight: bold;">Request Details</p>
+                <div class="req-detail">
+                    <label for="jenis_kirim">Jenis Pengiriman</label><br>
+                    <div class="form-check">
+                        <input type="radio" name="jenis_kirim" id="internal" value="Internal" class="form-check-input"><label for="internal" class="form-check-label">Internal</label><br>
+                        <input type="radio" name="jenis_kirim" id="eksternal" value="Eksternal" class="form-check-input"><label for="eksternal" class="form-check-label">Eksternal</label><br>
+                    </div>
         
-        <label for="jenis_barang">Jenis Barang/Dokumen</label><br>
-        <input type="checkbox" name="barang" value="Barang" id="barang"><label for="barang">Barang</label><br>
-        <input type="checkbox" name="dokumen" value="Dokumen" id="dokumen"><label for="dokumen">Dokumen</label><br>
-        <input type="checkbox" name="lainnya" value="Lainnya" id="lainnya"><label for="lainnya">Lainnya</label><br>
-        
-        <label for="jumlah">Jumlah Barang/Dokumen</label><input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
-        <label for="desc_barang">Deskripsi Barang/Dokumen</label><br>
-        <textarea name="desc_barang" id="desc_barang" cols="30" rows="5"></textarea><br>
 
-        <button type="submit" id="submit">Submit</button>
+                    <label for="tgl_kirim">Tanggal Pengiriman</label><br><input type="date" name="tgl_kirim" id="tgl_kirim"><br>
+                    <label for="jam_kirim">Jam Pengiriman</label><br><input type="time" name="jam_kirim" id="jam_kirim"><br>
+                    <label for="nama_kirim">Nama Pengirim</label><br><input type="text" name="nama_kirim" id="nama_kirim" style="width: 270px"><br>
+                    <label for="lokasi_kirim">Lokasi Pengirim</label><br><input type="text" name="lokasi_kirim" id="lokasi_kirim" style="width: 270px"><br>
+                    <label for="nama_terima">Nama Penerima</label><br><input type="text" name="nama_terima" id="nama_terima" style="width: 270px"><br>
+                    <label for="lokasi_terima">Lokasi Penerima</label><br><input type="text" name="lokasi_terima" id="lokasi_terima" style="width: 270px"><br>
+                    <label for="kontak_terima">Kontak Penerima</label><br><input type="tel" name="kontak_terima" id="kontak_terima" style="width: 270px"><br>
+        
+                </div>
+            </div>
+            <div class="table-item" style="margin-top: 33px;">
+                <label for="jenis_barang">Jenis Barang/Dokumen</label><br>
+                <div class="form-check">
+                    <input type="checkbox" name="barang" value="Barang" id="barang" class="form-check-input"><label for="barang" class="form-check-label">Barang</label><br>
+                    <input type="checkbox" name="dokumen" value="Dokumen" id="dokumen" class="form-check-input"><label for="dokumen" class="form-check-label">Dokumen</label><br>
+                    <input type="checkbox" name="lainnya" value="Lainnya" id="lainnya" class="form-check-input"><label for="lainnya" class="form-check-label">Lainnya</label><br>
+                </div>
+               
+
+                <label for="jumlah">Jumlah Barang/Dokumen</label><br><input type="number" name="jumlah" id="jumlah" min="1" value="1"><br>
+                <label for="desc_barang">Deskripsi Barang/Dokumen</label><br>
+                <textarea name="desc_barang" id="desc_barang" cols="35" rows="2"></textarea><br>
+                
+                <button type="submit" id="submit" class="btn btn-success">Submit Request</button>
+            </div>
     </form>
 
     <script src="/scripts/expecourmail/requestExpecourmail.js"></script>
     <script src="/scripts/cookiesGeneralInfo.js"></script>
 </body>
+
 </html>

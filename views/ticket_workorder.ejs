@@ -8,22 +8,7 @@
     <title>OFSER | Home</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-1">
-            <p>OFSER</p>
-            <a href="/home-req">Dashboard</a>
-            <a href="/ticket-console">Ticket Console</a>
-            <div class="search-group">
-                <input type="search" id="input-search" placeholder="Request ID"/>
-                <button type="button" id="btn-search">Search</button>   
-            </div>
-        </div>
-        <div class="navbar-2">
-            <a href="#">Notification</a>
-            <p>Welcome, <span id="user-name">Lucifer</span></p>
-            <a href="#">Profile</a>
-        </div>
-    </div>
+    <%- include('./partials/navbar_fulfiller.ejs') %>
 
     <div class="content">
         <p id="content-title">Ticket Workorder</p>
@@ -36,8 +21,7 @@
                         <table style="font-size: 0.93em;">
                             <tr><td>Work Order</td><td style="padding-left: 20px;">: <%= ticket.workorder_id %></td></tr>
                             <tr><td>Priority</td>
-                                <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: 
-                                    <select name="priority" id="priority">
+                                <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: <select name="priority" id="priority">
                                         <% const priorityOptions = ["Not Set","Low", "Medium", "High", "Critical"]; %>
                                         <% for (const option of priorityOptions) { %>
                                             <option value="<%= option %>" <%= ticket.priority === option ? 'selected' : '' %>><%= option %></option>
@@ -46,7 +30,7 @@
                                 </td>
                             </tr>
                             <tr><td>Assignee</td>
-                                <td style="padding-left: 20px;">: 
+                                <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: 
                                     <select name="assignee" id="assignee" data-ticket="<%= ticket._id %>" value="<%= ticket.assignee %>">
                                         <option value='' selected disabled hidden>Pilih Assignee</option>
                                         <% fulfiller.forEach(user => { %>
@@ -62,7 +46,7 @@
                             <tr><td>Status</td>
                                 <td style="padding-left: 20px; display: flex; flex-direction: row; align-items: center; gap: 10px;">: 
                                     <select name="status" id="status">
-                                        <% const statusOptions = ["Waiting Approval", "Assigned", "Pending", "In Progress", "Rejected"]; %>
+                                        <% const statusOptions = ["Waiting Approval", "Assigned", "Pending", "In Progress", "Completed","Rejected"]; %>
                                         <% for (const option of statusOptions) { %>
                                             <option value="<%= option %>" <%= ticket.status === option ? 'selected' : '' %>><%= option %></option>
                                         <% } %>
@@ -113,17 +97,16 @@
         </div>
     </div>
 
-    <div class="footer">
-        <p>Kontak Admin</p>
-        <div>
-            <p>Whatsapp: +62-85263422340</p>
-            <p>Email: lyft0@protonmail.com</p>
-        </div>
-    </div>
-
+    <%- include('./partials/footer.ejs') %>
     <script src="/scripts/home/getCookies.js"></script>
     <script src="/scripts/home/printTicket.js"></script>
     <script src="/scripts/home/updateWorkorder.js"></script>
     <script src="/scripts/home/activity.js"></script>
+    <script src="/scripts/home/searchTicket.js"></script>
+    <script>
+        document.querySelector('#profile').href = `/profile/${id_user}`
+        document.querySelector('#profile_img').src = '/images/profile/'+cookies.image
+    </script>
+    
 </body>
 </html>

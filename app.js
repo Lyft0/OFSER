@@ -26,7 +26,7 @@ let uri = "mongodb://ahmadafdhalx:test12345@ac-pddnmoq-shard-00-00.zxmupfd.mongo
 // connect to mongoDB
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true, ssl: true})
     .then((result) => {
-        app.listen(3000)
+        app.listen(3000, "0.0.0.0") // TODO
         console.log('> Connected to database!\n> https://localhost:3000')
     }) // listen for request on port
     .catch((err) => console.log(err))

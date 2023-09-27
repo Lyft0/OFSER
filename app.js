@@ -118,3 +118,4 @@ app.get('/logout', userController.logout)
 
 // dashboard data
 app.get('/get_data/:nama', ticketController.get_data)
+
